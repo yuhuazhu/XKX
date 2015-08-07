@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                tools:context="com.xiamen.xkx.JingquActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayblack"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/imgbtn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/ic_back"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgbtn_back"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="鼓浪屿景区"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:background="@mipmap/ic_more_white"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/top"
+        android:background="#88505050"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:visibility="invisible"
+        >
+
+        <ImageView
+            android:id="@+id/iv_jieshao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/selector_activity_jingqu_popup_btn_jieshao"/>
+
+        <TextView
+            android:id="@+id/tv_jieshao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_jieshao"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_jieshao"
+            android:singleLine="true"
+            android:text="介绍"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            />
+
+        <ImageView
+            android:id="@+id/iv_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_jieshao"
+            android:layout_alignStart="@+id/iv_jieshao"
+            android:layout_below="@+id/iv_jieshao"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/selector_activity_jingqu_popup_btn_pos"/>
+
+
+        <TextView
+            android:id="@+id/tv_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_pos"
+            android:layout_alignTop="@+id/iv_pos"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_pos"
+            android:text="位置"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
