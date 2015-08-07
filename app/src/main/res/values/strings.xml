@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">XKX</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="hello_world">世界</string>
+    <string name="action_settings">设置</string>
+    <string name="jing_qu_xuan_ze">景区选择</string>
+    <string name="shu_ru_cheng_shi_jing_qu">请输入城市\\景区</string>
+    <string name="current_position">当前位置</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_jingqu">JingquActivity</string>
+
 </resources>
