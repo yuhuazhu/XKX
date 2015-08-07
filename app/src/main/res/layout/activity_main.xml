@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/img_shake"
-        android:src="@mipmap/img_shake"
+        android:background="@mipmap/img_shake"
         android:layout_below="@+id/img_shakeshake"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
