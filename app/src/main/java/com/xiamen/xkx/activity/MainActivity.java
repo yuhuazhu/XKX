@@ -1,5 +1,6 @@
 package com.xiamen.xkx.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiamen.xkx.R;
+import com.xiamen.xkx.custom.TipView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,11 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
         DisplayMetrics metric = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;
         height = metric.heightPixels;
+        initView();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
     }
 
     //初始化控件
@@ -50,7 +54,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
+//        RelativeLayout layout = new RelativeLayout(this);
+//        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
+//        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
+//        int widths = tipView.getWidth();
+//        int heights = tipView.getHeight();
+//        TextView tv = new TextView(this);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        params.setMargins(100, 500, 200, 700);
+//        tipView.setLayoutParams(params);
+//        tv.setText("213123123");
+//        tv.setLayoutParams(params);
+//        layout.addView(tipView);
+//        addContentView(layout, params);
     }
+
 
     //摇一摇动画
     public void shakeShake() {
@@ -128,10 +147,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 shakeShake();
                 break;
             case R.id.imgBtn_select_scenic:
-                Toast.makeText(MainActivity.this, "aaa", Toast.LENGTH_SHORT).show();
                 //跳转到景区列表界面
-                shakeShake();
-                Intent Intent = new Intent();
+                Intent intent = new Intent(MainActivity.this, IntroductionActivity.class);
+                startActivity(intent);
                 break;
             case R.id.imgBtn_service:
                 if (isShowService) {
