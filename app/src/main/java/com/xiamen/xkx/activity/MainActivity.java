@@ -1,8 +1,9 @@
-package com.xiamen.xkx;
+package com.xiamen.xkx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 
 import android.view.View;
 import android.widget.Toast;
+
+import com.xiamen.xkx.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,12 +24,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton imgBtn_service;             //服务按钮
     private boolean isShowService;                  //是否显示服务内容
     private int animationCount = 5;
+    private int width;                              // 屏幕宽度（像素）
+    private int height;                             // 屏幕高度（像素）
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        width = metric.widthPixels;
+        height = metric.heightPixels;
     }
 
     //初始化控件
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //隐藏服务内容动画
     public void buttonOut() {
-        TranslateAnimation translate_right = new TranslateAnimation(0, 300, 0, 0);
+        TranslateAnimation translate_right = new TranslateAnimation(0, width / 5 * 3, 0, 0);
         // 设置动画持续时间
         translate_right.setDuration(600);
         translate_right.setFillAfter(true);
@@ -105,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //显示服务内容动画
     public void buttonIn() {
-        TranslateAnimation translate_left = new TranslateAnimation(300, 0, 0, 0);
+        TranslateAnimation translate_left = new TranslateAnimation(width / 5 * 3, 0, 0, 0);
         translate_left.setDuration(600);
         translate_left.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_left);
