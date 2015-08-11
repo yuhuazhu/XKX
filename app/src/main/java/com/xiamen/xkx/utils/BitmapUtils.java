@@ -1,16 +1,15 @@
 package com.xiamen.xkx.utils;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.ThumbnailUtils;
 
 public class BitmapUtils {
     /**
@@ -22,6 +21,7 @@ public class BitmapUtils {
     public static Bitmap getLoacalBitmapByAssets(Context c, String url) {
         Bitmap bitmap = null;
         InputStream in = null;
+        int a;
         try {
             in = c.getResources().getAssets().open(url);
             bitmap = BitmapFactory.decodeStream(in);
