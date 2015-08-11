@@ -1,78 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-    >
-    <!--android:background="@drawable/bg_shape_item_jingqu"-->
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
 
     <ImageView
         android:id="@+id/iv_jingdian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:focusable="false"
+        android:clickable="false"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/img_gulangyu"/>
+        android:src="@mipmap/img_gulangyu" />
 
-    <TextView
-        android:id="@+id/tv_jingdian"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_jingdian"
+        android:layout_below="@+id/iv_jingdian"
+        android:background="@mipmap/img_white_bg"
+        android:gravity="center_vertical">
 
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="鼓浪屿风琴博物馆"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <TextView
+            android:id="@+id/tv_jingdian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <ImageView
-        android:id="@+id/iv_jieshao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_jingdian"
-        android:layout_alignTop="@+id/tv_jingdian"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/tv_jieshao"
-        android:background="@drawable/selector_activity_jingqu_item_btn_jieshao"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="鼓浪屿风琴博物馆"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/tv_jieshao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_jieshao"
-        android:layout_alignTop="@+id/iv_jieshao"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/iv_download"
-        android:text="介绍"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/selector_tv_color_pressed_blue"/>
+        <ImageView
+            android:id="@+id/iv_jieshao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_jingdian"
+            android:layout_alignTop="@+id/tv_jingdian"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/tv_jieshao"
+            android:visibility="gone"
+            android:background="@drawable/selector_activity_jingqu_item_btn_jieshao" />
 
-    <ImageView
-        android:id="@+id/iv_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_jieshao"
-        android:layout_alignTop="@+id/iv_jieshao"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/tv_ziyuanbao"
-        android:background="@drawable/selector_activity_jingqu_item_btn_download"
-        />
+        <TextView
+            android:id="@+id/tv_jieshao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_jieshao"
+            android:layout_alignTop="@+id/iv_jieshao"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/iv_download"
+            android:text="介绍"
+            android:drawableLeft="@drawable/selector_activity_jingqu_item_btn_jieshao"
+            android:drawablePadding="6dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/selector_tv_color_pressed_blue" />
 
-    <TextView
-        android:id="@+id/tv_ziyuanbao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_jieshao"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/iv_jieshao"
-        android:layout_marginRight="10dp"
-        android:singleLine="true"
-        android:text="资源包"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/selector_tv_color_pressed_blue"/>
+        <ImageView
+            android:id="@+id/iv_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_jieshao"
+            android:layout_alignTop="@+id/iv_jieshao"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/tv_ziyuanbao"
+            android:visibility="gone"
+            android:background="@drawable/selector_activity_jingqu_item_btn_download" />
+
+        <TextView
+            android:id="@+id/tv_ziyuanbao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_jieshao"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/iv_jieshao"
+            android:layout_marginRight="10dp"
+            android:singleLine="true"
+            android:text="资源包"
+            android:drawableLeft="@drawable/selector_activity_jingqu_item_btn_download"
+            android:drawablePadding="6dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/selector_tv_color_pressed_blue" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
