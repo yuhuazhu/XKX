@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
         width = metric.widthPixels;
         height = metric.heightPixels;
         initView();
-        getWindowManager().getDefaultDisplay().getMetrics(metric);
     }
 
     //初始化控件
