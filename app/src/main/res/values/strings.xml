@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">XKX</string>
 
-    <string name="hello_world">世界</string>
-    <string name="action_settings">设置</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="gulangyu">    鼓浪屿（Kulangsu），福建省厦门市思明区的一个小岛，是著名的风景区。原鼓浪屿区后被撤销行政区并入思明管辖，位于厦门岛西南隅，与厦门岛隔海相望。原名圆沙洲、圆洲仔，因海西南有海蚀洞受浪潮冲击，声如擂鼓，明朝雅化为今名。
+由于历史原因，中外风格各异的建筑物在此地被完好地汇集、保留，有“万国建筑博览”之称。龙头路商业街诸多火热商铺都有贩卖各种厦门特色小吃，此岛还是音乐的沃土，人才辈出，钢琴拥有密度居全国之冠，又得美名“钢琴之岛”、“音乐之乡”，是一个非常浪漫的旅游景点。有乡贤林承强题联赞曰：鼓浪悬帆今胜昔，堆金积玉慨而慷。\n\n
+    鼓浪屿旅游区是国家级风景名胜区鼓浪屿--万石山风景区的主要组成部分，由鼓浪屿本岛以及岛上的日光岩、菽庄花园、郑成功纪念馆、钢琴博物馆、百鸟园等旅游景点组成，以其独具一格的自然与人文景观成为我国知名的旅游区。\n\n
+    鼓浪屿原名“圆沙洲”，别名“圆洲仔”，明 朝改称“鼓浪屿”。因岛西南方海滩上有一块两米多高、中有洞穴的礁石，每当涨潮水涌，浪击礁石，声似擂鼓，人们称“鼓浪石”，鼓浪屿因此而得名。鼓浪屿街道短小，纵横交错，清洁幽静，空气新鲜，岛上树木苍翠，繁花似锦，特别是小楼红瓦与绿树相映，显得格外漂亮。\n</string>
     <string name="jing_qu_xuan_ze">景区选择</string>
     <string name="shu_ru_cheng_shi_jing_qu">请输入城市\\景区</string>
     <string name="current_position">当前位置</string>
