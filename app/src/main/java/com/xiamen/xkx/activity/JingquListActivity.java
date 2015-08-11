@@ -1,4 +1,4 @@
-package com.xiamen.xkx;
+package com.xiamen.xkx.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +11,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xiamen.xkx.R;
+
 import java.util.ArrayList;
+
+interface OnItemClickLitener {
+    void onItemClick(View view, int position);
+
+    void onItemLongClick(View view, int position);
+}
 
 /**
  * Created by Administrator on 2015/8/7.
  */ //AppCompat
 public class JingquListActivity extends AppCompatActivity {
 
+    private final int TYPE_ITEM = 1;
+    private final int TYPE_HEAD = 2;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
-
     private ArrayList<String> list = new ArrayList<String>();
 
     @Override
@@ -109,9 +118,6 @@ public class JingquListActivity extends AppCompatActivity {
         }
     }
 
-    private final int TYPE_ITEM = 1;
-    private final int TYPE_HEAD = 2;
-
     class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         OnItemClickLitener onItemClickLitener;
@@ -178,10 +184,4 @@ public class JingquListActivity extends AppCompatActivity {
         }
     }
 
-}
-
-interface OnItemClickLitener {
-    void onItemClick(View view, int position);
-
-    void onItemLongClick(View view, int position);
 }

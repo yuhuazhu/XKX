@@ -1,4 +1,4 @@
-package com.xiamen.xkx;
+package com.xiamen.xkx.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.xiamen.xkx.R;
 
 import java.util.ArrayList;
 
