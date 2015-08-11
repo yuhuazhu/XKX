@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.xiamen.xkx"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiamen.xkx">
 
     <application
         android:allowBackup="true"
@@ -13,16 +12,19 @@
             android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.IntroductionActivity"/>
-        <activity android:name=".activity.PhotoScanningActivity"/>
-        <activity android:name=".activity.PhotoTakeActivity"/>
-        <activity android:name=".activity.PhotoUploadActivity"/>
-        <activity android:name=".activity.PhotoWashActivity"/>
+        <activity android:name=".activity.PhotoScanningActivity" />
+        <activity android:name=".activity.IntroductionActivity" />
+        <activity android:name=".activity.PhotoUploadActivity" />
+        <activity android:name=".activity.JingquListActivity" />
+        <activity android:name=".activity.PhotoWashActivity" />
+        <activity android:name=".activity.PhotoTakeActivity" />
+        <activity android:name=".activity.LocationActivity" />
+        <activity android:name=".activity.JingquActivity" />
     </application>
 
 </manifest>
