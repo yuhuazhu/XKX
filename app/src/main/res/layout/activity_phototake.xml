@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#88252525"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/imgbtn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgbtn_back"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="位置"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:background="@mipmap/ic_home_white"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:id="@+id/progresslay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="top"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txt01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传中请稍候..."
+            android:textSize="@dimen/text_size_start">
+        </TextView>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/txt01"
+            android:layout_marginTop="10dp"
+            android:background="@color/lightgray">
+        </View>
+
+        <ProgressBar
+            android:id="@+id/progress_horizontal"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginTop="10dp"
+            android:max="100"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/laybtn01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/content_top_marginlarge"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/content_top_marginlarge"
+            android:layout_weight="0.5"
+            android:background="@color/lightblue"
+            android:paddingRight="@dimen/margin_small">
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="取消"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_start"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/upbtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/content_top_marginlarge"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="0.5"
+            android:background="@color/lightblue">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="上传"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_start"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

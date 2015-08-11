@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/laytop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grayblack"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/imgbtn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgbtn_back"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:text="照片冲印"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+        <ImageButton
+            android:id="@+id/imgbtn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imgbtn_back"
+            android:background="@mipmap/ic_home_white"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lay02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/laytop"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/content_top_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/content_top_margin">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_smallest"
+            android:text="新用户可以免费体验冲印照片2张"
+            android:textColor="@color/lightblue"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_content"
+            android:text="通过app上传照片，在景区、酒店、机场、车站等地的旅游电子信息屏冲印。"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay02"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_stroke_activity_photo_wash"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="附 近 的 冲 印 点"
+        android:textColor="@color/lightblue"
+        android:textSize="18sp"/>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="20dp"
+        android:background="#dbdbdb"/>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_solid_btn_activity_photo_wash"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="相册"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView7"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_solid_btn_activity_photo_wash"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="拍照"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"/>
+
+
+</RelativeLayout>
