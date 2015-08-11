@@ -107,11 +107,14 @@ public class JingquActivity extends AppCompatActivity {
     class MyHolder extends RecyclerView.ViewHolder {
 
         private ImageView iv;
-        private TextView title;
+        private TextView tvTitle;
+        private TextView tvDown;
 
 
         public MyHolder(View itemView) {
             super(itemView);
+            tvTitle = (TextView) itemView.findViewById(R.id.tv_jingdian);
+            tvDown = (TextView) itemView.findViewById(R.id.tv_ziyuanbao);
         }
     }
 
@@ -138,13 +141,13 @@ public class JingquActivity extends AppCompatActivity {
 //                }
 //            });
             MyHolder mh = (MyHolder) holder;
-            mh.iv.setOnClickListener(new View.OnClickListener() {
+            mh.tvTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO
                 }
             });
-            mh.title.setOnClickListener(new View.OnClickListener() {
+            mh.tvDown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO
