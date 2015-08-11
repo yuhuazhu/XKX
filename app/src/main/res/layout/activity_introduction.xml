@@ -6,7 +6,9 @@
 
     <include
         android:id="@+id/bar"
-        layout="@layout/bar_left_title_right"></include>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/bar_left_title_right" />
 
     <ImageView
         android:layout_width="match_parent"
