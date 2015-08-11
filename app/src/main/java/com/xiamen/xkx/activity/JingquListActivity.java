@@ -51,6 +51,7 @@ public class JingquListActivity extends AppCompatActivity {
         findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Toast.makeText(JingquListActivity.this, "back click", Toast.LENGTH_SHORT).show();
             }
         });

@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.imgBtn_select_scenic:
                 //跳转到景区列表界面
-                Intent intent = new Intent(MainActivity.this, IntroductionActivity.class);
+                Intent intent = new Intent(MainActivity.this, JingquListActivity.class);
                 startActivity(intent);
                 break;
             case R.id.imgBtn_service:

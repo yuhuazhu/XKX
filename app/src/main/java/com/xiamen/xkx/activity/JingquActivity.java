@@ -1,5 +1,6 @@
 package com.xiamen.xkx.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,9 +83,13 @@ public class JingquActivity extends AppCompatActivity {
             } else if (view.getId() == R.id.imgbtn_back) {
                 finish();
             } else if (view.getId() == R.id.iv_jieshao || view.getId() == R.id.tv_jieshao) {
-                //TODO start another activity
+                //TODO something
+                Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
+                startActivity(intent);
             } else if (view.getId() == R.id.iv_pos || view.getId() == R.id.tv_pos) {
                 //TODO start another activity
+                Intent intent = new Intent(JingquActivity.this, LocationActivity.class);
+                startActivity(intent);
             }
         }
     }
@@ -126,13 +131,28 @@ public class JingquActivity extends AppCompatActivity {
             final ImageView ivJingdian = (ImageView) holder.itemView.findViewById(R.id.iv_jingdian);
             tvJingdian.setText(list.get(position).title);
             ivJingdian.setImageResource(list.get(position).imgID);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //TODO start another activity
+//                }
+//            });
+            MyHolder mh = (MyHolder) holder;
+            mh.iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO start another activity
+                    //TODO
                 }
             });
+            mh.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO
+                }
+            });
+
         }
+
 
         @Override
         public int getItemCount() {
