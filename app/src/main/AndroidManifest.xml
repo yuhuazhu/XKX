@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiamen.xkx">
+<manifest
+    package="com.xiamen.xkx"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -25,6 +38,27 @@
         <activity android:name=".activity.PhotoTakeActivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.JingquActivity" />
+        <!-- 自己封装的，优化提取rssi的后台蓝牙扫描服务 -->
+        <service
+            android:name=".service.BleScanService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+        <service
+            android:name=".service.AudioService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <!-- BrightBeacon 扫描服务. -->
+        <service
+            android:name="com.brtbeacon.sdk.service.BRTBeaconService"
+            android:exported="false"/>
+
+        <activity
+            android:name=".activity.HulishanActivity"
+            android:label="@string/title_activity_hulishan">
+        </activity>
     </application>
 
 </manifest>
