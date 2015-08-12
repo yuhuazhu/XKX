@@ -91,12 +91,12 @@ public class JingquListActivity extends AppCompatActivity {
         list.add("(厦门)鼓浪屿景区");
         list.add("(厦门)观音山景区");
         list.add("(厦门)胡里山景区");
-        list.add("(厦门)南普陀寺");
-        list.add("(厦门)厦门大学");
-        list.add("(厦门)中山路");
-        list.add("(厦门)环岛路");
-        list.add("(厦门)文曾路");
-        list.add("(厦门)植物园");
+//        list.add("(厦门)南普陀寺");
+//        list.add("(厦门)厦门大学");
+//        list.add("(厦门)中山路");
+//        list.add("(厦门)环岛路");
+//        list.add("(厦门)文曾路");
+//        list.add("(厦门)植物园");
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -143,6 +143,7 @@ public class JingquListActivity extends AppCompatActivity {
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
             if (viewHolder instanceof ItemViewHolder) {
                 final ItemViewHolder holder = (ItemViewHolder) viewHolder;
+                holder.tv.setTextSize(19);
                 holder.tv.setText(list.get(position - 1));
                 if (true) {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {

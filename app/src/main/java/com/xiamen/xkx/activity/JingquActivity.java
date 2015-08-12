@@ -2,6 +2,7 @@ package com.xiamen.xkx.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -143,48 +144,60 @@ public class JingquActivity extends AppCompatActivity {
             tvJingdian.setText(list.get(position).title);
             ivJingdian.setImageResource(list.get(position).imgID);
             final MyHolder mh = (MyHolder) holder;
-            mh.imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent;
-                    if (position == 1) {//open zhengcheng gong app
-                        String pkgName = "com.mgd.zcg3d";
-                        String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
-                        ComponentName component = new ComponentName(pkgName, launcherActivity);
-                        intent = new Intent();
-                        intent.setComponent(component);
-                    } else {
-                        intent = new Intent(JingquActivity.this, MapActivity.class);
+            // 干掉资源包
+            if(position >= 1)
+            {
+                mh.tvDown.setTextColor(Color.GRAY);
+                mh.tvJiesao.setTextColor(Color.GRAY);
+            }
+            else
+            {
+                mh.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent;
+                        if (position == 1) {//open zhengcheng gong app
+                            String pkgName = "com.mgd.zcg3d";
+                            String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
+                            ComponentName component = new ComponentName(pkgName, launcherActivity);
+                            intent = new Intent();
+                            intent.setComponent(component);
+                        }
+                        else
+                        {
+                            intent = new Intent(JingquActivity.this, MapActivity.class);
+                        }
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(JingquActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    try {
+                });
+                mh.tvTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(JingquActivity.this, MapActivity.class);
                         startActivity(intent);
-                    } catch (Exception e) {
-                        Toast.makeText(JingquActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
                     }
-                }
-            });
-            mh.tvTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(JingquActivity.this, MapActivity.class);
-                    startActivity(intent);
-                }
-            });
-            final String str = mh.tvTitle.getText().toString();
-            mh.tvJiesao.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
-                    intent.putExtra("景点", str);
-                    startActivity(intent);
-                }
-            });
-            mh.tvDown.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO
-                }
-            });
+                });
+                final String str = mh.tvTitle.getText().toString();
+                mh.tvJiesao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
+                        intent.putExtra("景点", str);
+                        startActivity(intent);
+                    }
+                });
+                mh.tvDown.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO
+                    }
+                });
+            }
+
 
         }
 
