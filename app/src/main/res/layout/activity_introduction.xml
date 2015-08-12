@@ -25,6 +25,7 @@
         android:background="@mipmap/img_gray_bg">
 
         <TextView
+            android:id="@+id/tv_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -32,21 +33,23 @@
             android:layout_marginLeft="36dp"
             android:drawableLeft="@drawable/selector_ic_in"
             android:drawablePadding="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/selector_tv_color_white_blue"
             android:text="进入"
             android:paddingTop="5dp" />
 
         <TextView
+            android:id="@+id/tv_res"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:drawableLeft="@drawable/selector_ic_download"
             android:drawablePadding="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/selector_tv_color_white_blue"
             android:text="资源包"
             android:paddingTop="5dp" />
 
         <TextView
+            android:id="@+id/tv_explain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -54,7 +57,7 @@
             android:layout_marginRight="36dp"
             android:drawableLeft="@drawable/selector_ic_explain"
             android:drawablePadding="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/selector_tv_color_white_blue"
             android:text="讲解"
             android:paddingTop="5dp" />
     </RelativeLayout>

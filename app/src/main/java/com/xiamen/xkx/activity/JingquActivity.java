@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiamen.xkx.R;
 
@@ -155,7 +156,11 @@ public class JingquActivity extends AppCompatActivity {
                     } else {
                         intent = new Intent(JingquActivity.this, MapActivity.class);
                     }
-                    startActivity(intent);
+                    try {
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(JingquActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             mh.tvTitle.setOnClickListener(new View.OnClickListener() {
