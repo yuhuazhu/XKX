@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xiamen.xkx.R;
 
@@ -52,7 +51,6 @@ public class JingquListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Toast.makeText(JingquListActivity.this, "back click", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -65,7 +63,6 @@ public class JingquListActivity extends AppCompatActivity {
         //    @Override
         //    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         //        Log.e("test", "onTouchEvent()-------------");
-        //        Toast.makeText(JingquListActivity.this, "onTouchEvent", Toast.LENGTH_SHORT).show();
         //    }
         //
         //    @Override
@@ -78,7 +75,6 @@ public class JingquListActivity extends AppCompatActivity {
         mRecyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(JingquListActivity.this, "onClick", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,7 +151,6 @@ public class JingquListActivity extends AppCompatActivity {
                             } else {
                                 int pos = holder.getLayoutPosition();
                                 //onItemClickLitener.onItemClick(holder.itemView, pos);
-                                Toast.makeText(JingquListActivity.this, "onClick", Toast.LENGTH_SHORT).show();
                                 Intent it = new Intent(JingquListActivity.this, JingquActivity.class);
                                 startActivity(it);
                             }
