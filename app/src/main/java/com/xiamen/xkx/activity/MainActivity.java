@@ -22,7 +22,6 @@ import com.xiamen.xkx.custom.TipView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView iv_shakeshake;                //摇一摇文字
     private ImageView iv_shake;                     //摇一摇图标
     private ImageButton imgBtn_scenic;              //选择景点按钮
     private ImageButton imgBtn_photo;               //全身按摩按钮
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //初始化控件
     public void initView() {
-        iv_shakeshake = (ImageView) findViewById(R.id.img_shakeshake);
         iv_shake = (ImageView) findViewById(R.id.img_shake);
         imgBtn_scenic = (ImageButton) findViewById(R.id.imgBtn_select_scenic);
         imgBtn_photo = (ImageButton) findViewById(R.id.imgBtn_photo);
@@ -57,15 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
-        iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                finish();
-                Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
 //        RelativeLayout layout = new RelativeLayout(this);
 //        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
 //        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
