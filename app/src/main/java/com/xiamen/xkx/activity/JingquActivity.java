@@ -158,6 +158,7 @@ public class JingquActivity extends AppCompatActivity {
             }
             else
             {
+                mh.tvTitle.setTextColor(Color.BLACK);
                 mh.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
