@@ -140,7 +140,7 @@ public class JingquListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
             if (viewHolder instanceof ItemViewHolder) {
                 final ItemViewHolder holder = (ItemViewHolder) viewHolder;
                 holder.tv.setText(list.get(position - 1));
@@ -148,20 +148,16 @@ public class JingquListActivity extends AppCompatActivity {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int pos = holder.getLayoutPosition();
-                            //onItemClickLitener.onItemClick(holder.itemView, pos);
-                            Toast.makeText(JingquListActivity.this, "onClick", Toast.LENGTH_SHORT).show();
-                            Intent it = new Intent(JingquListActivity.this, JingquActivity.class);
-                            startActivity(it);
-                        }
-                    });
-                    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            int pos = holder.getLayoutPosition();
-                            //onItemClickLitener.onItemLongClick(holder.itemView, pos);
-                            Toast.makeText(JingquListActivity.this, "onlongclick", Toast.LENGTH_SHORT).show();
-                            return false;
+                            if (position == 3) {
+                                Intent it = new Intent(JingquListActivity.this, HulishanActivity.class);
+                                startActivity(it);
+                            } else {
+                                int pos = holder.getLayoutPosition();
+                                //onItemClickLitener.onItemClick(holder.itemView, pos);
+                                Toast.makeText(JingquListActivity.this, "onClick", Toast.LENGTH_SHORT).show();
+                                Intent it = new Intent(JingquListActivity.this, JingquActivity.class);
+                                startActivity(it);
+                            }
                         }
                     });
                 }
