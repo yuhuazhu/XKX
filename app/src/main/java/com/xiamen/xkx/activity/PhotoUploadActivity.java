@@ -2,22 +2,20 @@ package com.xiamen.xkx.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,13 +23,15 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.xiamen.xkx.R;
 import com.xiamen.xkx.adapter.BaseListAdapter;
-import com.xiamen.xkx.utils.BitmapUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,102 +51,51 @@ import java.util.Map;
 public class PhotoUploadActivity extends AppCompatActivity implements OnClickListener {
     protected ImageLoader imageLoader = ImageLoader.getInstance();
     DisplayImageOptions options; // 配置图片加载及显示选项
+    List<Object> imglist = new ArrayList<Object>();
     /**
      * 存储图片地址
      */
-    ArrayList<String> listImgPath;
-    List<Object> imglist = new ArrayList<Object>();
-    String[] imageUriArray;
-    private GridView gridphoto;
+    private ArrayList<String> listImgPath;
+    private String[] imageUriArray;
     private MyAdapter myAdapter;
     private List<Map<String, Object>> list;
-    private String newName = "image.jpg";
     private String uploadFile = "/sdcard/image.JPG";
     private String actionUrl = "http://www.xmlyt.cn/ajax/Statistics.ashx?sn=addUserPic";
-    private TextView mText1;
-    private TextView mText2;
-    private Button mButton;
-    private StringBuffer b;
-    private RelativeLayout upbtn;
-    private RelativeLayout cancel;
-    private String position = "";
+    private String newName = "image.jpg";
     private String QRCODE = "";
+    private String position = "";
+    private StringBuffer b;
+
     private Boolean selflag = false;
+
+    private TextView tvUpload;
+    private TextView cancel;
+    private GridView gridphoto;
     private ImageButton imgbtn_back;
     private RelativeLayout progresslay;
     private ProgressBar progress_horizontal;
+    private LocationTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 移除ActionBar，在setContent之前调用下面这句，保证没有ActionBar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_photoupload);
         initData();
+        initImageLoader(this);
         initUI();
     }
 
-    public void home(View v) {
-        Intent intent = null;
-
-        intent = new Intent(this, MainActivity.class);
-
-        startActivity(intent);
-    }
-
-    private void initData() {
-
-        // 扫描内存中图片并存入list
-
-        listImgPath = getImgPathList();
-        if (listImgPath.size() < 1) {
-
-        } else {
-            // list转成数组
-            imageUriArray = (String[]) listImgPath.toArray(new String[listImgPath.size()]);
-
-            // 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
-            options = new DisplayImageOptions.Builder().showStubImage(R.mipmap.ic_launcher) // 在ImageView加载过程中显示图片
-                    .showImageForEmptyUri(R.mipmap.ic_launcher) // image连接地址为空时
-                    .showImageOnFail(R.mipmap.ic_launcher) // image加载失败
-                    .cacheInMemory(true) // 加载图片时会在内存中加载缓存
-                    .cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
-                            // 设置用户加载图片task(这里是圆角图片显示)
-                    .build();
-
-        }
-        // getData();
-
-    }
-
-    // @Override
-    // public void onBackPressed() {
-    // AnimateFirstDisplayListener.displayedImages.clear();
-    // super.onBackPressed();
-    //
-    private List<Map<String, Object>> getData() {
-        // map.put(参数名字,参数值)
-        list = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = new HashMap<String, Object>();
-
-        String externalStoragePath = Environment.getExternalStorageDirectory().getPath();
-        BitmapUtils.getLoacalBitmapByAssets(this, externalStoragePath);
-
-        map.put("img", BitmapUtils.getLoacalBitmapByAssets(this, externalStoragePath));
-        list.add(map);
-        return list;
-    }
-
     private void initUI() {
-        upbtn = (RelativeLayout) findViewById(R.id.upbtn);
-        cancel = (RelativeLayout) findViewById(R.id.cancel);
-        cancel.setOnClickListener(this);
+        tvUpload = (TextView) findViewById(R.id.tv_upload);
+        cancel = (TextView) findViewById(R.id.tv_cancel);
         progresslay = (RelativeLayout) findViewById(R.id.progresslay);
         progress_horizontal = (ProgressBar) findViewById(R.id.progress_horizontal);
-        upbtn.setOnClickListener(this);
         imgbtn_back = (ImageButton) findViewById(R.id.imgbtn_back);
-        imgbtn_back.setOnClickListener(this);
         gridphoto = (GridView) findViewById(R.id.gridphoto);
+
+        tvUpload.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+        imgbtn_back.setOnClickListener(this);
         myAdapter = new MyAdapter();
         gridphoto.setAdapter(myAdapter);
         gridphoto.setOnItemClickListener(new OnItemClickListener() {
@@ -157,18 +106,47 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
                 position = String.valueOf(arg2);
                 myAdapter.setSelectItem(arg2);
                 if (selflag) {
-                    selflag = false;
                     position = "";
-
+                    selflag = false;
                 } else {
                     selflag = true;
                 }
                 myAdapter.notifyDataSetChanged();
-
-                // TODO Auto-generated method stub
-
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_upload:
+                if (position.equals("")) {
+                    showDialog("请选择一张照片!");
+                    return;
+                }
+                progress_horizontal.setProgress(0);
+                progresslay.setVisibility(View.VISIBLE);
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("arg2", position);
+                task = new LocationTask();
+                task.execute(params);
+                break;
+            case R.id.tv_cancel:
+            case R.id.imgbtn_back:
+                if (task != null) {
+                    task.cancel(true);
+                }
+                finish();
+                break;
+        }
+    }
+
+    private void initData() {
+        // 扫描内存中图片并存入list
+        listImgPath = getImgPathList();
+        if (listImgPath.size() >= 1) {
+            imageUriArray = (String[]) listImgPath.toArray(new String[listImgPath.size()]);
+        }
     }
 
     /**
@@ -180,13 +158,10 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
         ArrayList<String> list = new ArrayList<String>();
         Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{"_id", "_data"}, null, null, null);
         while (cursor.moveToNext()) {
-
             imglist.add(R.mipmap.img_photo_selected);
-
             list.add(cursor.getString(1));// 将图片路径添加到list中
         }
         cursor.close();
-
         return list;
     }
 
@@ -241,10 +216,9 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
     }
 
     /* 显示Dialog的method */
-    private void showDialog(String mess) {
-        new AlertDialog.Builder(PhotoUploadActivity.this).setTitle("Message").setMessage(mess).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+    private void showDialog(String msg) {
+        new AlertDialog.Builder(PhotoUploadActivity.this).setTitle("提示").setMessage(msg).setNegativeButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
                 if (!position.equals("")) {
                     Intent intent = new Intent();
                     intent.setClass(PhotoUploadActivity.this, PhotoScanningActivity.class);
@@ -254,37 +228,23 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
                     selflag = false;
                     myAdapter.notifyDataSetChanged();
                     startActivity(intent);
-
                 }
             }
         }).show();
     }
 
-    @Override
-    public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.upbtn:
 
-                if (position.equals("")) {
-                    showDialog("请选择一个照片!");
-                    return;
-                }
-                progresslay.setVisibility(View.VISIBLE);
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("arg2", position);
-                LocationTask task = new LocationTask();
-
-                task.execute(params);
-
-                break;
-            case R.id.cancel:
-            case R.id.imgbtn_back:
-                finish();
-                break;
-            default:
-                break;
-        }
+    public void initImageLoader(Context context) {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO).build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+        // 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
+        options = new DisplayImageOptions.Builder().showStubImage(R.mipmap.ic_launcher) // 在ImageView加载过程中显示图片
+                .showImageForEmptyUri(R.mipmap.ic_launcher) // image连接地址为空时
+                .showImageOnFail(R.mipmap.ic_launcher) // image加载失败
+                .cacheInMemory(true) // 加载图片时会在内存中加载缓存
+                .cacheOnDisc(true) // 加载图片时会在磁盘中加载缓存
+                .build();
     }
 
     /**
@@ -371,71 +331,40 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
 
     private class LocationTask extends AsyncTask<HashMap<String, String>, Integer, String> {
 
-        // doInBackground方法内部执行后台任务,不可在此方法内修改UI
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            tvUpload.setEnabled(false);
+        }
+
         @Override
         protected String doInBackground(HashMap<String, String>... params) {
             // TODO Auto-generated method stub
-
             String str = uploadFile(imageUriArray[Integer.valueOf(params[0].get("arg2"))]);
-            for (int i = 0; i < 10; i++)
-
-            {
-
-                try
-
-                {
-
+            for (int i = 0; i < 10; i++) {
+                try {
                     Thread.sleep(1000);
-
                     publishProgress(i * 10);// 进度条每次更新10%,执行中创建新线程处理onProgressUpdate()
-
-                } catch (InterruptedException e)
-
-                {
-
+                } catch (InterruptedException e) {
                     e.printStackTrace();
-
                 }
-
             }
             return str;
         }
 
-        // onProgressUpdate方法用于更新进度信息
         @Override
         protected void onProgressUpdate(Integer... progresses) {
             // Log.i(TAG, "onProgressUpdate(Progress... progresses) called");
             progress_horizontal.setProgress(progresses[0]);
             // textView.setText("loading..." + progresses[0] + "%");
-
         }
 
-        // onCancelled方法用于在取消执行中的任务时更改UI
-        @Override
-        protected void onCancelled() {
-
-            // Log.i(TAG, "onCancelled() called");
-            // textView.setText("cancelled");
-            // progressBar.setProgress(0);
-            //
-            // execute.setEnabled(true);
-            // cancel.setEnabled(false);
-        }
-
-        // / </summary>
-        // / <param name="json">JSON</param>
-        // / <returns>Dictionary`[string, object]</returns>
-
-        // onPostExecute方法用于在执行完后台任务后更新UI,显示结果
         @Override
         protected void onPostExecute(String Signinfo) {
-
-            //
-
+            tvUpload.setEnabled(true);
             try {
                 JSONObject jsonObject = new JSONObject(Signinfo);
                 if (jsonObject != null) {
-
                     if (jsonObject.getString("code").equals("0000")) {
                         QRCODE = jsonObject.getJSONObject("result").optString("QRCODE");
                         if (QRCODE.equals("")) {
@@ -444,19 +373,12 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
                             showDialog("上传成功");
                             progress_horizontal.setProgress(100);
                             progresslay.setVisibility(View.GONE);
-
                         }
                     }
-
                 }
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
-            // showDialog("上传成功" + b.toString().trim()); /* 关闭DataOutputStream
-            // */
-
         }
     }
 
@@ -521,7 +443,6 @@ public class PhotoUploadActivity extends AppCompatActivity implements OnClickLis
          * 适配器
          */
         private class ViewHolder {
-
             private ImageView img01;
             private ImageView img02;
         }

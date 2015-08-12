@@ -63,8 +63,6 @@ public class PhotoScanningActivity extends AppCompatActivity implements OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 移除ActionBar，在setContent之前调用下面这句，保证没有ActionBar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_photoscan);
         initData();
         initUI();

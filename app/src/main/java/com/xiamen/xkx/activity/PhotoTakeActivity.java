@@ -45,8 +45,6 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 移除ActionBar，在setContent之前调用下面这句，保证没有ActionBar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_phototake);
         initData();
         initUI();
