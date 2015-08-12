@@ -1,36 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
         android:id="@+id/bar"
+        layout="@layout/bar_left_title_right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/bar_left_title_right" />
+        android:layout_height="wrap_content" />
 
     <ImageView
+        android:id="@+id/imageView"
+        android:layout_below="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
         android:background="@mipmap/img_introduction_top" />
 
-    <ScrollView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/grayLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
+        android:layout_alignBottom="@+id/imageView"
+        android:background="@mipmap/img_gray_bg">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="36dp"
+            android:drawableLeft="@drawable/selector_ic_in"
+            android:drawablePadding="8dp"
+            android:textColor="@color/white"
+            android:text="进入"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@drawable/selector_ic_download"
+            android:drawablePadding="8dp"
+            android:textColor="@color/white"
+            android:text="资源包"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="36dp"
+            android:drawableLeft="@drawable/selector_ic_explain"
+            android:drawablePadding="8dp"
+            android:textColor="@color/white"
+            android:text="讲解"
+            android:paddingTop="5dp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <TextView
             android:id="@+id/tv_content"
-            android:text="@string/gulangyu"
-            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="12dp" />
+            android:paddingTop="12dp"
+            android:text="@string/gulangyu"
+            android:textSize="16dp" />
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

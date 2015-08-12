@@ -64,9 +64,11 @@ public class JingquActivity extends AppCompatActivity {
 
     private void initData() {
         list.add(new ItemData("鼓浪屿风琴博物馆", R.mipmap.img_gulangyu));
+        list.add(new ItemData("郑成功纪念馆", R.mipmap.img_zheng_cheng_gong_ji_nian_guan));
         list.add(new ItemData("厦门海底世界", R.mipmap.img_haidi_shijie));
         list.add(new ItemData("日光岩", R.mipmap.img_riguangyan));
         list.add(new ItemData("菽庄花园", R.mipmap.img_shu_zhuang_huayuan));
+        list.add(new ItemData("海天堂构", R.mipmap.img_hai_tian_tang_gou));
     }
 
     class ButtonOnClickListener implements View.OnClickListener {
@@ -85,6 +87,7 @@ public class JingquActivity extends AppCompatActivity {
             } else if (view.getId() == R.id.iv_jieshao || view.getId() == R.id.tv_jieshao) {
                 //TODO something
                 Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
+                intent.putExtra("景点", "鼓浪屿景区");
                 startActivity(intent);
             } else if (view.getId() == R.id.iv_pos || view.getId() == R.id.tv_pos) {
                 //TODO start another activity
@@ -106,14 +109,17 @@ public class JingquActivity extends AppCompatActivity {
 
     class MyHolder extends RecyclerView.ViewHolder {
 
-        private ImageView iv;
+        private ImageView ImageView;
         private TextView tvTitle;
+        private TextView tvJiesao;
         private TextView tvDown;
 
 
         public MyHolder(View itemView) {
             super(itemView);
+            ImageView = (ImageView) itemView.findViewById(R.id.iv_jingdian);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_jingdian);
+            tvJiesao = (TextView) itemView.findViewById(R.id.tv_jieshao);
             tvDown = (TextView) itemView.findViewById(R.id.tv_ziyuanbao);
         }
     }
@@ -140,11 +146,28 @@ public class JingquActivity extends AppCompatActivity {
 //                    //TODO start another activity
 //                }
 //            });
-            MyHolder mh = (MyHolder) holder;
+            final MyHolder mh = (MyHolder) holder;
+            mh.ImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(JingquActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
             mh.tvTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
+                    Intent intent = new Intent(JingquActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
+            final String str = mh.tvTitle.getText().toString();
+            mh.tvJiesao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
+                    intent.putExtra("景点", str);
+                    startActivity(intent);
                 }
             });
             mh.tvDown.setOnClickListener(new View.OnClickListener() {

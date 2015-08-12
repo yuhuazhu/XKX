@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageView6"
-        android:background="@mipmap/img_map" />
+        android:background="@mipmap/img_location" />
 
 </LinearLayout>
