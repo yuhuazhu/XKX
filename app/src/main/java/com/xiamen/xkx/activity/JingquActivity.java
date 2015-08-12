@@ -3,6 +3,7 @@ package com.xiamen.xkx.activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -149,6 +150,11 @@ public class JingquActivity extends AppCompatActivity {
             {
                 mh.tvDown.setTextColor(Color.GRAY);
                 mh.tvJiesao.setTextColor(Color.GRAY);
+                // TODO: 灰色图标
+                Drawable drawable= getResources().getDrawable(R.mipmap.ic_download_black);
+                // 这一步必须要做,否则不会显示.
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                mh.tvDown.setCompoundDrawables(drawable, null, null, null);
             }
             else
             {

@@ -1,6 +1,5 @@
 package com.xiamen.xkx.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,15 +12,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xiamen.xkx.R;
-import com.xiamen.xkx.custom.TipView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ImageView iv_shakeshake;                //摇一摇文字
     private ImageView iv_shake;                     //摇一摇图标
     private ImageButton imgBtn_scenic;              //选择景点按钮
     private ImageButton imgBtn_photo;               //全身按摩按钮
@@ -45,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //初始化控件
     public void initView() {
+        iv_shakeshake = (ImageView) findViewById(R.id.img_shakeshake);
         iv_shake = (ImageView) findViewById(R.id.img_shake);
         imgBtn_scenic = (ImageButton) findViewById(R.id.imgBtn_select_scenic);
         imgBtn_photo = (ImageButton) findViewById(R.id.imgBtn_photo);
@@ -55,22 +52,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
-//        RelativeLayout layout = new RelativeLayout(this);
-//        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
-//        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
-//        int widths = tipView.getWidth();
-//        int heights = tipView.getHeight();
-//        TextView tv = new TextView(this);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(100, 500, 200, 700);
-//        tipView.setLayoutParams(params);
-//        tv.setText("213123123");
-//        tv.setLayoutParams(params);
-//        layout.addView(tipView);
-//        addContentView(layout, params);
+        iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                finish();
+                Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
     }
-
 
     //摇一摇动画
     public void shakeShake() {
@@ -180,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                 } else {
                     // 没有安装要跳转的app应用，提醒一下
-//				Toast.makeText(getApplicationContext(), "哟，赶紧下载安装这个APP吧",
-//						Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "哟，赶紧下载安装这个APP吧",
+                    //Toast.LENGTH_LONG).show();
                     intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
                     Uri content_url = Uri.parse("http://www.ebwing.com/download/appindex.do#");
@@ -189,9 +180,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
 
                 }
-                // intent.setAction("")
-                // intent.setClass(getApplication(), MassageActivity.class);
-                // startActivity(intent);
         }
     }
 }
