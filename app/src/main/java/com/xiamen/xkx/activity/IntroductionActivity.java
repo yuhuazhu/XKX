@@ -37,6 +37,28 @@ public class IntroductionActivity extends Activity {
         } else {
             layout.setVisibility(View.VISIBLE);
             tv_title.setText(str);
+            TextView vt_in = (TextView) findViewById(R.id.tv_in);
+            TextView tv_res = (TextView) findViewById(R.id.tv_res);
+            TextView tv_explain = (TextView) findViewById(R.id.tv_explain);
+            vt_in.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(IntroductionActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
+            tv_res.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            tv_explain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
 
         imaBtn_left.setOnClickListener(new View.OnClickListener() {
