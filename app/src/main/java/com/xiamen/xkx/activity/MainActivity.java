@@ -1,23 +1,17 @@
 package com.xiamen.xkx.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.xiamen.xkx.R;
-import com.xiamen.xkx.custom.TipView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,20 +48,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
-//        RelativeLayout layout = new RelativeLayout(this);
-//        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
-//        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
-//        int widths = tipView.getWidth();
-//        int heights = tipView.getHeight();
-//        TextView tv = new TextView(this);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(100, 500, 200, 700);
-//        tipView.setLayoutParams(params);
-//        tv.setText("213123123");
-//        tv.setLayoutParams(params);
-//        layout.addView(tipView);
-//        addContentView(layout, params);
+        //        RelativeLayout layout = new RelativeLayout(this);
+        //        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
+        //        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
+        //        int widths = tipView.getWidth();
+        //        int heights = tipView.getHeight();
+        //        TextView tv = new TextView(this);
+        //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+        //                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //        params.setMargins(100, 500, 200, 700);
+        //        tipView.setLayoutParams(params);
+        //        tv.setText("213123123");
+        //        tv.setLayoutParams(params);
+        //        layout.addView(tipView);
+        //        addContentView(layout, params);
     }
 
 
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         animationSet.addAnimation(animation2);
         animationSet.addAnimation(animation3);
         animationSet.addAnimation(animation4);
-//        animationSet.setInterpolator(new LinearInterpolator());
+        //        animationSet.setInterpolator(new LinearInterpolator());
         iv_shake.startAnimation(animationSet);
         iv_shake.setBackgroundResource(R.mipmap.img_shake_run);
         animationSet.setAnimationListener(new Animation.AnimationListener() {
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationEnd(Animation animation) {
                 //设置重复播放动画没用，只好监听重播
-                if (animationCount-- != 0) {
+                if (--animationCount >= 0) {
                     iv_shake.startAnimation(animationSet);
                 } else {
                     iv_shake.clearAnimation();
@@ -116,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
     }
@@ -164,6 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     buttonIn();
                 }
                 isShowService = !isShowService;
+                break;
+            case R.id.imgBtn_photo:
+                Intent it = new Intent(this, PhotoWashActivity.class);
+                startActivity(it);
                 break;
         }
     }
