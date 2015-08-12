@@ -2,6 +2,7 @@ package com.xiamen.xkx.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.imgBtn_select_scenic:
                 //跳转到景区列表界面
                 Intent intent = new Intent(MainActivity.this, JingquListActivity.class);
+                intent.putExtra("name", "鼓浪屿风琴博物馆");
                 startActivity(intent);
                 break;
             case R.id.imgBtn_service:
@@ -165,6 +167,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 isShowService = !isShowService;
                 break;
+            case R.id.imgBtn_massage:
+                // 跳转到按摩界面
+                // 通过包名获取要跳转的app，创建intent对象
+                intent = getPackageManager().getLaunchIntentForPackage(
+                        "com.ebwing.mass");
+                // 这里如果intent为空，就说名没有安装要跳转的应用嘛
+                if (intent != null) {
+                    // 这里跟Activity传递参数一样的嘛，不要担心怎么传递参数，还有接收参数也是跟Activity和Activity传参数一样
+                    intent.putExtra("name", "XiaKeXing");
+                    intent.putExtra("app", "123456");
+                    startActivity(intent);
+                } else {
+                    // 没有安装要跳转的app应用，提醒一下
+//				Toast.makeText(getApplicationContext(), "哟，赶紧下载安装这个APP吧",
+//						Toast.LENGTH_LONG).show();
+                    intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse("http://www.ebwing.com/download/appindex.do#");
+                    intent.setData(content_url);
+                    startActivity(intent);
+
+                }
+                // intent.setAction("")
+                // intent.setClass(getApplication(), MassageActivity.class);
+                // startActivity(intent);
         }
     }
 }
