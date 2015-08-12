@@ -1,6 +1,5 @@
 package com.xiamen.xkx.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.xiamen.xkx.R;
-import com.xiamen.xkx.custom.TipView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,20 +49,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
-//        RelativeLayout layout = new RelativeLayout(this);
-//        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
-//        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
-//        int widths = tipView.getWidth();
-//        int heights = tipView.getHeight();
-//        TextView tv = new TextView(this);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(100, 500, 200, 700);
-//        tipView.setLayoutParams(params);
-//        tv.setText("213123123");
-//        tv.setLayoutParams(params);
-//        layout.addView(tipView);
-//        addContentView(layout, params);
+        //        RelativeLayout layout = new RelativeLayout(this);
+        //        TipView tipView = new TipView(this,"获取位置信息，申请打开蓝牙","确定","取消");
+        //        tipView.setBackgroundResource(R.mipmap.img_tip_bg);
+        //        int widths = tipView.getWidth();
+        //        int heights = tipView.getHeight();
+        //        TextView tv = new TextView(this);
+        //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+        //                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //        params.setMargins(100, 500, 200, 700);
+        //        tipView.setLayoutParams(params);
+        //        tv.setText("213123123");
+        //        tv.setLayoutParams(params);
+        //        layout.addView(tipView);
+        //        addContentView(layout, params);
     }
 
 
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         animationSet.addAnimation(animation2);
         animationSet.addAnimation(animation3);
         animationSet.addAnimation(animation4);
-//        animationSet.setInterpolator(new LinearInterpolator());
+        //        animationSet.setInterpolator(new LinearInterpolator());
         iv_shake.startAnimation(animationSet);
         iv_shake.setBackgroundResource(R.mipmap.img_shake_run);
         animationSet.setAnimationListener(new Animation.AnimationListener() {
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationEnd(Animation animation) {
                 //设置重复播放动画没用，只好监听重播
-                if (--animationCount >= 0) {
+                if (animationCount-- != 0) {
                     iv_shake.startAnimation(animationSet);
                 } else {
                     iv_shake.clearAnimation();
@@ -163,6 +161,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 isShowService = !isShowService;
                 break;
+            case R.id.imgBtn_massage:
+                // 跳转到按摩界面
+                // 通过包名获取要跳转的app，创建intent对象
+                intent = getPackageManager().getLaunchIntentForPackage("com.ebwing.mass");
+                // 这里如果intent为空，就说名没有安装要跳转的应用嘛
+                if (intent != null) {
+                    // 这里跟Activity传递参数一样的嘛，不要担心怎么传递参数，还有接收参数也是跟Activity和Activity传参数一样
+                    intent.putExtra("name", "XiaKeXing");
+                    intent.putExtra("app", "123456");
+                    startActivity(intent);
+                } else {
+                    // 没有安装要跳转的app应用，提醒一下
+                    //				Toast.makeText(getApplicationContext(), "哟，赶紧下载安装这个APP吧",
+                    //						Toast.LENGTH_LONG).show();
+                    intent = new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    Uri content_url = Uri.parse("http://www.ebwing.com/download/appindex.do#");
+                    intent.setData(content_url);
+                    startActivity(intent);
+
+                }
             case R.id.imgBtn_photo:
                 Intent it = new Intent(this, PhotoWashActivity.class);
                 startActivity(it);
