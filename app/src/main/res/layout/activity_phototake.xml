@@ -28,7 +28,7 @@
             android:layout_alignTop="@+id/imgbtn_back"
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
-            android:text="位置"
+            android:text="照片选择"
             android:textColor="@color/white"
             android:textSize="18sp"/>
 
