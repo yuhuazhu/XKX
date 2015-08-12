@@ -1,5 +1,6 @@
 package com.xiamen.xkx.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,7 +110,7 @@ public class JingquActivity extends AppCompatActivity {
 
     class MyHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ImageView;
+        private ImageView imageView;
         private TextView tvTitle;
         private TextView tvJiesao;
         private TextView tvDown;
@@ -117,7 +118,7 @@ public class JingquActivity extends AppCompatActivity {
 
         public MyHolder(View itemView) {
             super(itemView);
-            ImageView = (ImageView) itemView.findViewById(R.id.iv_jingdian);
+            imageView = (ImageView) itemView.findViewById(R.id.iv_jingdian);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_jingdian);
             tvJiesao = (TextView) itemView.findViewById(R.id.tv_jieshao);
             tvDown = (TextView) itemView.findViewById(R.id.tv_ziyuanbao);
@@ -135,22 +136,25 @@ public class JingquActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             final TextView tvJingdian = (TextView) holder.itemView.findViewById(R.id.tv_jingdian);
             final ImageView ivJingdian = (ImageView) holder.itemView.findViewById(R.id.iv_jingdian);
             tvJingdian.setText(list.get(position).title);
             ivJingdian.setImageResource(list.get(position).imgID);
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //TODO start another activity
-//                }
-//            });
             final MyHolder mh = (MyHolder) holder;
-            mh.ImageView.setOnClickListener(new View.OnClickListener() {
+            mh.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(JingquActivity.this, MapActivity.class);
+                    Intent intent;
+                    if (position == 1) {//open zhengcheng gong app
+                        String pkgName = "com.mgd.zcg3d";
+                        String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
+                        ComponentName component = new ComponentName(pkgName, launcherActivity);
+                        intent = new Intent();
+                        intent.setComponent(component);
+                    } else {
+                        intent = new Intent(JingquActivity.this, MapActivity.class);
+                    }
                     startActivity(intent);
                 }
             });
