@@ -2,12 +2,13 @@ package com.xiamen.xkx.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 
 import com.xiamen.xkx.R;
 
-public class HulishanActivity extends ActionBarActivity {
+public class HulishanActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
