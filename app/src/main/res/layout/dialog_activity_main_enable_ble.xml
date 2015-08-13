@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="获取位置信息，申请开启蓝牙" />
+
+    <Button
+        android:id="@+id/img_btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@+id/tv_tip"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="40dp"
+        android:text="确定"
+        android:background="@mipmap/img_tip_ok" />
+
+    <Button
+        android:id="@+id/img_btn_cancer"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:text="取消"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/tv_tip"
+        android:layout_marginBottom="30dp"
+        android:background="@mipmap/img_tip_cancer" />
+</RelativeLayout>
