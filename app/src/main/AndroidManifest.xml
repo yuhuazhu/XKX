@@ -32,6 +32,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.Fengqin3dDaolanActivity"/>
         <activity android:name=".activity.PhotoScanningActivity" />
         <activity android:name=".activity.IntroductionActivity" />
         <activity android:name=".activity.PhotoUploadActivity" />
