@@ -10,12 +10,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiamen.xkx.R;
 
 import org.json.JSONException;
@@ -51,19 +51,11 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
 
     }
 
-    public void home(View v) {
-        Intent intent = null;
-
-        intent = new Intent(this, MainActivity.class);
-
-        startActivity(intent);
-    }
-
     private void initData() {
         selectedImage = (Uri) getIntent().getExtras().get("Uri");
         fileName = (String) getIntent().getExtras().get("fileName");
-        ((ImageView) findViewById(R.id.imageView1)).setImageURI(selectedImage);// 将图片显示在ImageView里
-
+        ImageView iv = ((ImageView) findViewById(R.id.imageView1));
+        ImageLoader.getInstance().displayImage(selectedImage.getPath(), iv);
     }
 
     private void initUI() {
@@ -85,13 +77,11 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.upbtn:
-
                 if (!fileName.equals("")) {
                     progresslay.setVisibility(View.VISIBLE);
                     HashMap<String, String> params = new HashMap<String, String>();
                     params.put("arg2", fileName);
                     LocationTask task = new LocationTask();
-
                     task.execute(params);
                 }
                 break;
@@ -139,7 +129,7 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
 																	 */
             fStream.close();
             ds.flush();
-			/* 取得Response内容 */
+            /* 取得Response内容 */
             InputStream is = con.getInputStream();
             int ch;
             b = new StringBuffer();

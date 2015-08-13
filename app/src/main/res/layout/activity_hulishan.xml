@@ -29,7 +29,7 @@
             android:layout_alignTop="@+id/imgbtn_back"
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
-            android:text="鼓浪屿景区"
+            android:text="胡里山导览"
             android:textColor="@color/white"
             android:textSize="18sp"/>
 
@@ -40,7 +40,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/imgbtn_back"
-            android:background="@mipmap/ic_more_white"/>
+            android:background="@mipmap/ic_more_white"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <WebView

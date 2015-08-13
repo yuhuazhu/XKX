@@ -6,10 +6,11 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.xiamen.xkx.R;
 
-public class HulishanActivity extends AppCompatActivity {
+public class Fengqin3dDaolanActivity extends AppCompatActivity {
 
     private WebView wv;
 
@@ -17,9 +18,12 @@ public class HulishanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hulishan);
+
+        TextView tv = (TextView) findViewById(R.id.textView2);
+        tv.setText("3D导览");
         wv = (WebView) findViewById(R.id.webView);
 
-        wv.loadUrl("http://m.lvxbang.com/hdmap/hulishan");
+        wv.loadUrl("http://www.zxplanet.com/zxdata/organ/index.html");
         //enable interact with the page
         wv.getSettings().setJavaScriptEnabled(true);
         // enable media in the page
