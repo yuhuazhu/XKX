@@ -192,7 +192,7 @@ public class MapActivity extends Activity implements View.OnClickListener {
                 isYinpinPlaying = !isYinpinPlaying;
                 isJiangjiePlaying = false;
                 //播放图标
-                //ivJiangjie.setImageResource(R.mipmap);
+                //ivJiangjie.setImageResource(R.mipmap.);
                 if (isYinpinPlaying) {
                     //TODO CHANGE ICON
                     //ivYinpin.setImageResource(R.mipmap.);
