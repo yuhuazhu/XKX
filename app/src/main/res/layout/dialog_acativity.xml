@@ -36,14 +36,15 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/relativeLayout2"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/img_bierguan"/>
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_bierguan"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -71,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/textView4"
-                android:background="@mipmap/ic_play_black"/>
+                android:background="@mipmap/ic_play_black"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/textView4"
@@ -101,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/textView5"
-                android:background="@mipmap/ic_voice_black"/>
+                android:background="@mipmap/ic_voice_black"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/textView5"
