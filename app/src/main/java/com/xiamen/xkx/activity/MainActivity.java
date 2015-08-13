@@ -1,17 +1,31 @@
 package com.xiamen.xkx.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.xiamen.xkx.R;
 
@@ -27,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int animationCount = 5;
     private int width;                              // 屏幕宽度（像素）
     private int height;                             // 屏幕高度（像素）
+    private AlertDialog dialog;
+    private SensorManager sensorManager;
+    private Vibrator vibrator;
+    private final int MSG_SENSOR_SHAKE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         width = metric.widthPixels;
         height = metric.heightPixels;
         initView();
+        if (!BluetoothAdapter.getDefaultAdapter().isEnabled())
+            showEnableBlueToothDialog();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensorManager.unregisterListener(sensorEventListener);
     }
 
     //初始化控件
@@ -61,7 +87,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (sensorManager != null) {// 注册监听器
+            sensorManager
+                    .registerListener(
+                            sensorEventListener,
+                            sensorManager
+                                    .getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                            SensorManager.SENSOR_DELAY_NORMAL);
+            // 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率
+        }
     }
+
+    /**
+     * 重力感应监听
+     */
+    private SensorEventListener sensorEventListener = new SensorEventListener() {
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            // 传感器信息改变时执行该方法
+            float[] values = event.values;
+            float x = values[0]; // x轴方向的重力加速度，向右为正
+            float y = values[1]; // y轴方向的重力加速度，向前为正
+            float z = values[2]; // z轴方向的重力加速度，向上为正
+            // 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
+            if (Math.abs(x) > 15 || Math.abs(y) > 15 || Math.abs(z) > 15) {
+                Log.i("12344567", "x轴" + x + "；y轴" + y + "；z轴" + z);
+            }
+            int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
+            if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
+                    || Math.abs(z) > medumValue) {
+                vibrator.vibrate(200);
+                Message msg = new Message();
+                msg.what = MSG_SENSOR_SHAKE;
+                handler.sendMessage(msg);
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
+    /**
+     * 动作执行
+     */
+    Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SENSOR_SHAKE:
+                    shakeShake();
+                    break;
+            }
+        }
+    };
 
     //摇一摇动画
     public void shakeShake() {
@@ -111,6 +196,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    private void showEnableBlueToothDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View v = getLayoutInflater().inflate(R.layout.dialog_activity_main_enable_ble, null);
+        Button img_btn_ok = (Button) v.findViewById(R.id.img_btn_ok);
+        Button img_btn_cancer = (Button) v.findViewById(R.id.img_btn_cancer);
+        dialog = builder.setView(v).create();
+        img_btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BluetoothAdapter.getDefaultAdapter().enable();
+                dialog.dismiss();
+            }
+        });
+        img_btn_cancer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     //隐藏服务内容动画
