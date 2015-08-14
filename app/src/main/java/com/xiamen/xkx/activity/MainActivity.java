@@ -133,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         sensorManager.unregisterListener(sensorEventListener);
-        unbindService(conn);
+        try {
+            unbindService(conn);
+        } catch (Exception e) {
+
+        }
     }
 
     //初始化控件
@@ -154,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                finish();
                 Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                 startActivity(intent);
+                finish();
                 return false;
             }
         });
