@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,7 +24,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/8/12.
  */
-public class MapActivity extends AppCompatActivity implements View.OnClickListener {
+public class GuanyinshanMapActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected BleScanService.BleBinder bleBinder;
     HashMap<Integer, Data> map = new HashMap<Integer, Data>();
@@ -95,39 +94,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_map, null);
-        setContentView(view);
-        //view.setOnTouchListener(new View.OnTouchListener() {
-        //    @Override
-        //    public boolean onTouch(View v, MotionEvent event) {
-        //        final float x = event.getX();
-        //        final float y = event.getY();
-        //        int bound = 10;
-        //        int id = 0;
-        //        if (isInRegion(x, y, 100, 100, bound)) {
-        //            id = 1;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 2;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 3;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 4;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 5;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 6;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 7;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 8;
-        //        } else if (isInRegion(x, y, 200, 200, bound)) {
-        //            id = 9;
-        //        }
-        //        showInfoDialog(id);
-        //        return false;
-        //    }
-        //});
+        setContentView(R.layout.activity_map);
 
         bindBleScanService();
         bindAudioService();
@@ -141,25 +108,24 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void bindAudioService() {
-        Intent service = new Intent(MapActivity.this, AudioService.class);
+        Intent service = new Intent(GuanyinshanMapActivity.this, AudioService.class);
         bindService(service, audioConn, BIND_AUTO_CREATE);
     }
 
     private void bindBleScanService() {
-        Intent service = new Intent(MapActivity.this, BleScanService.class);
+        Intent service = new Intent(GuanyinshanMapActivity.this, BleScanService.class);
         bindService(service, bleConn, BIND_AUTO_CREATE);
     }
 
     //TODO
     private void initData() {
         //图片
-        int[] imageids = {R.mipmap.img_jiangjie1, R.mipmap.img_jiangjie2, R.mipmap.img_jiangjie3, R.mipmap.img_jiangjie4, R.mipmap.img_jiangjie5, R.mipmap.img_jiangjie6, R.mipmap.img_jiangjie7, R.mipmap.img_jiangjie8, R.mipmap.img_jiangjie9};
+        int[] imageids = {R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan, R.mipmap.img_guanyinshan};
         // 声音id
-        //TODO 声音还没放进来
-        int[] audioids = {R.raw.qin_huyouyi1, R.raw.qin_zhonglei2, R.raw.qin_bier3, 0, R.raw.qin_jixie5, 0, 0, R.raw.qin_bagualou8, 0};
+        int[] audioids = {R.raw.g_yin_dao_tai, R.raw.g_tiyan3d, R.raw.g_ying_yong_zhan_shi_qu, R.raw.g_you_ke_jie_dai, R.raw.g_xin_xi_bo_fang_ping, R.raw.g_you_ke_shang_che_qu, R.raw.g_lv_you_zi_zhu_fu_wu_qu, R.raw.g_yi_wu_shi, R.raw.g_ban_shou_li_chao_shi};
         int[] yinpinids = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-        String[] titles = {"胡友义", "风琴的种类", "诺曼·比尔风琴", "笙", "机械风琴", "亚历山大簧片风琴", "台式风琴", "八卦楼", "风琴原理"};
-        String[] str = getResources().getStringArray(R.array.taici);
+        String[] titles = getResources().getStringArray(R.array.guanyinshan_title);
+        String[] str = getResources().getStringArray(R.array.guanyinshan_text);
         for (int i = 0; i < imageids.length; i++) {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + audioids[i]);
             Uri yinpin = Uri.parse("android.resource://" + getPackageName() + "/" + yinpinids[i]);
@@ -198,11 +164,12 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             public void onClick(View v) {
                 isYinpinPlaying = !isYinpinPlaying;
                 isJiangjiePlaying = false;
-                //TODO 没有播放状态，播放图标
                 ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
                 if (isYinpinPlaying) {
                     ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    audioBinder.audioPlay(data.leftUri);
+                    if (data.leftUri != null) {
+                        audioBinder.audioPlay(data.leftUri);
+                    }
                 } else {
                     ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
                     audioBinder.audioPause();
@@ -219,7 +186,9 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                 ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
                 if (isJiangjiePlaying) {
                     ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    audioBinder.audioPlay(data.uri);
+                    if (data.uri != null) {
+                        audioBinder.audioPlay(data.uri);
+                    }
                 } else {
                     ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
                     audioBinder.audioPause();
@@ -251,6 +220,13 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     public void initView() {
+        try {
+            TextView tvTitle = (TextView) findViewById(R.id.bar_title);
+            tvTitle.setText("观音山");
+        } catch (Exception e) {
+
+        }
+
         findViewById(R.id.imgbtn1).setOnClickListener(this);
         findViewById(R.id.imgbtn2).setOnClickListener(this);
         findViewById(R.id.imgbtn3).setOnClickListener(this);
@@ -265,7 +241,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         findViewById(R.id.imgbtn_3d).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(MapActivity.this, Fengqin3dDaolanActivity.class);
+                final Intent intent = new Intent(GuanyinshanMapActivity.this, Fengqin3dDaolanActivity.class);
                 startActivity(intent);
             }
         });
@@ -284,7 +260,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 //回到首页
-                Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                Intent intent = new Intent(GuanyinshanMapActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
