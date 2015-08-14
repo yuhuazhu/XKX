@@ -58,7 +58,7 @@
         android:background="@drawable/bg_stroke_in_dialog"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        >
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -68,11 +68,11 @@
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/textView4"
-                android:background="@mipmap/ic_play_black"
+                android:background="@mipmap/ic_play_blue"
                 android:clickable="true"/>
 
             <TextView
@@ -99,11 +99,11 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/textView5"
-                android:background="@mipmap/ic_voice_black"
+                android:background="@mipmap/ic_play_blue"
                 android:clickable="true"/>
 
             <TextView
@@ -124,6 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout"
         android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp"
