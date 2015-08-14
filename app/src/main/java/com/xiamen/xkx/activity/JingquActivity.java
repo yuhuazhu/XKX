@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class JingquActivity extends AppCompatActivity {
 
     boolean isPopup = false;
+    int which;
     private View popupView;
     private ArrayList<ItemData> list = new ArrayList<ItemData>();
     private RecyclerView rv;
@@ -32,6 +33,9 @@ public class JingquActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jingqu);
+
+        Intent getIntent = getIntent();
+        which = getIntent.getIntExtra("which", 0);
 
         initData();
         initView();
@@ -48,6 +52,15 @@ public class JingquActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        Intent it = getIntent();
+        int which = it.getIntExtra("which", 0);
+        if (which == 2) {
+            TextView tv = (TextView) findViewById(R.id.textView2);
+            tv.setText("观音山");
+            findViewById(R.id.imgbtn_more).setVisibility(View.INVISIBLE);
+        }
+
         popupView = findViewById(R.id.rl_popup);
         final ImageButton btnBack = (ImageButton) findViewById(R.id.imgbtn_back);
         final ImageButton btnMore = (ImageButton) findViewById(R.id.imgbtn_more);
@@ -69,6 +82,7 @@ public class JingquActivity extends AppCompatActivity {
     private void initData() {
         Intent it = getIntent();
         int which = it.getIntExtra("which", 0);
+
         if (which == 2) {
             list.add(new ItemData("旅游集散服务中心", R.mipmap.img_jisanfuwu));
             list.add(new ItemData("沙雕公园", R.mipmap.img_shadiao));
@@ -167,18 +181,24 @@ public class JingquActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent;
                         if (position == 1) {//open zhengcheng gong app
-                            String pkgName = "com.mgd.zcg3d";
-                            String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
-                            ComponentName component = new ComponentName(pkgName, launcherActivity);
-                            intent = new Intent();
-                            intent.setComponent(component);
+                            try {
+                                String pkgName = "com.mgd.zcg3d";
+                                String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
+                                ComponentName component = new ComponentName(pkgName, launcherActivity);
+                                intent = new Intent();
+                                intent.setComponent(component);
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                Toast.makeText(JingquActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            intent = new Intent(JingquActivity.this, MapActivity.class);
-                        }
-                        try {
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            Toast.makeText(JingquActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
+                            if (which == 2) {
+                                intent = new Intent(JingquActivity.this, GuanyinshanMapActivity.class);
+                                startActivity(intent);
+                            } else {
+                                intent = new Intent(JingquActivity.this, MapActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 });

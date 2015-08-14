@@ -19,6 +19,7 @@ import com.xiamen.xkx.R;
 import com.xiamen.xkx.service.AudioService;
 import com.xiamen.xkx.service.BleScanService;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -155,9 +156,8 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         //图片
         int[] imageids = {R.mipmap.img_jiangjie1, R.mipmap.img_jiangjie2, R.mipmap.img_jiangjie3, R.mipmap.img_jiangjie4, R.mipmap.img_jiangjie5, R.mipmap.img_jiangjie6, R.mipmap.img_jiangjie7, R.mipmap.img_jiangjie8, R.mipmap.img_jiangjie9};
         // 声音id
-        //TODO 声音还没放进来
         int[] audioids = {R.raw.qin_huyouyi1, R.raw.qin_zhonglei2, R.raw.qin_bier3, 0, R.raw.qin_jixie5, 0, 0, R.raw.qin_bagualou8, 0};
-        int[] yinpinids = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] yinpinids = {R.raw.yinpin, R.raw.yinpin2, R.raw.yinpin, R.raw.yinpin2, R.raw.yinpin, R.raw.yinpin2, R.raw.yinpin, R.raw.yinpin2, R.raw.yinpin};
         String[] titles = {"胡友义", "风琴的种类", "诺曼·比尔风琴", "笙", "机械风琴", "亚历山大簧片风琴", "台式风琴", "八卦楼", "风琴原理"};
         String[] str = getResources().getStringArray(R.array.taici);
         for (int i = 0; i < imageids.length; i++) {
@@ -186,46 +186,61 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         final ImageView ivClose = (ImageView) view.findViewById(R.id.imageView2);
         final ImageView ivYinpin = (ImageView) view.findViewById(R.id.imageView4);
         final ImageView ivJiangjie = (ImageView) view.findViewById(R.id.imageView5);
-        if (data.leftUri == null) {
+        if (data.leftUri == null || id == 4 || id == 6 || id == 7 || id == 9) {
             ivYinpin.setClickable(false);
-        }
-        if (data.uri == null) {
-            ivJiangjie.setClickable(false);
-        }
-        ivYinpin.setOnClickListener(new View.OnClickListener() {
+            ivYinpin.setVisibility(View.INVISIBLE);
+            ivYinpin.setBackgroundResource(R.mipmap.ic_play_black);
+        } else {
+            ivYinpin.setClickable(true);
+            ivYinpin.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                isYinpinPlaying = !isYinpinPlaying;
-                isJiangjiePlaying = false;
-                //TODO 没有播放状态，播放图标
-                ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
-                if (isYinpinPlaying) {
-                    ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    audioBinder.audioPlay(data.leftUri);
-                } else {
-                    ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
-                    audioBinder.audioPause();
-                }
-            }
-        });
-
-        ivJiangjie.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                isJiangjiePlaying = !isJiangjiePlaying;
-                isYinpinPlaying = false;
-                ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
-                if (isJiangjiePlaying) {
-                    ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    audioBinder.audioPlay(data.uri);
-                } else {
+                @Override
+                public void onClick(View v) {
+                    isYinpinPlaying = !isYinpinPlaying;
+                    isJiangjiePlaying = false;
+                    //TODO 没有播放状态，播放图标
                     ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
-                    audioBinder.audioPause();
+                    if (isYinpinPlaying) {
+                        ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
+                        try {
+                            audioBinder.audioPlay(data.leftUri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
+                        audioBinder.audioPause();
+                    }
                 }
-            }
-        });
+            });
+        }
+        if (data.uri == null || id == 4 || id == 6 || id == 7 || id == 9) {
+            ivJiangjie.setClickable(false);
+            ivJiangjie.setVisibility(View.INVISIBLE);
+            ivJiangjie.setBackgroundResource(R.mipmap.ic_play_black);
+        } else {
+            ivJiangjie.setClickable(true);
+            ivJiangjie.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    isJiangjiePlaying = !isJiangjiePlaying;
+                    isYinpinPlaying = false;
+                    ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
+                    if (isJiangjiePlaying) {
+                        ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
+                        try {
+                            audioBinder.audioPlay(data.uri);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
+                        audioBinder.audioPause();
+                    }
+                }
+            });
+        }
 
         tvTitle.setText(data.title);
         tvInfo.setText(data.text);
@@ -239,12 +254,6 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     isJiangjiePlaying = false;
                     audioBinder.audioStop();
                 }
-            }
-        });
-
-        tvJiangjie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
         dialog.show();
@@ -273,7 +282,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         ImageButton imaBtn_right = (ImageButton) bar.findViewById(R.id.bar_right);
         ImageButton imaBtn_left = (ImageButton) bar.findViewById(R.id.bar_left);
         TextView tv_title = (TextView) bar.findViewById(R.id.bar_title);
-        tv_title.setText("风琴博物馆");
+        tv_title.setText("鼓浪屿风琴博物馆");
         imaBtn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -333,7 +342,11 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         isJiangjiePlaying = !isJiangjiePlaying;
         if (isJiangjiePlaying) {
             //播放
-            audioBinder.audioPlay(getAudioUri(id));
+            try {
+                audioBinder.audioPlay(getAudioUri(id));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             //停止
         }

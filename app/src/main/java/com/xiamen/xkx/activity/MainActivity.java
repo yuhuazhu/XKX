@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
         try {
             iv_shake.clearAnimation();
+            sensorManager.unregisterListener(sensorEventListener);
             unbindService(conn);
         } catch (Exception e) {
 
@@ -132,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         sensorManager.unregisterListener(sensorEventListener);
-        unbindService(conn);
+        try {
+            unbindService(conn);
+        } catch (Exception e) {
+
+        }
     }
 
     //初始化控件
@@ -153,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                finish();
                 Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                 startActivity(intent);
+                finish();
                 return false;
             }
         });
@@ -340,6 +345,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.img_shake:
                 vibrator.vibrate(400);
+                Intent service = new Intent(MainActivity.this, BleScanService.class);
+                bindService(service, conn, BIND_AUTO_CREATE);
                 shakeShake();
                 break;
             case R.id.imgBtn_select_scenic:

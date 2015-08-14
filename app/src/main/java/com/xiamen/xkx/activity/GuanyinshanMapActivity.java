@@ -18,6 +18,7 @@ import com.xiamen.xkx.R;
 import com.xiamen.xkx.service.AudioService;
 import com.xiamen.xkx.service.BleScanService;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_map_guanyinshan);
 
         bindBleScanService();
         bindAudioService();
@@ -154,47 +155,60 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
         final ImageView ivJiangjie = (ImageView) view.findViewById(R.id.imageView5);
         if (data.leftUri == null) {
             ivYinpin.setClickable(false);
+            ivYinpin.setVisibility(View.INVISIBLE);
+        } else {
+            ivYinpin.setClickable(true);
+            ivYinpin.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    isYinpinPlaying = !isYinpinPlaying;
+                    isJiangjiePlaying = false;
+                    ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
+                    if (isYinpinPlaying) {
+                        ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
+                        if (data.leftUri != null) {
+                            try {
+                                audioBinder.audioPlay(data.leftUri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
+                        audioBinder.audioPause();
+                    }
+                }
+            });
         }
         if (data.uri == null) {
             ivJiangjie.setClickable(false);
-        }
-        ivYinpin.setOnClickListener(new View.OnClickListener() {
+            ivJiangjie.setVisibility(View.INVISIBLE);
+        } else {
+            ivJiangjie.setClickable(true);
+            ivJiangjie.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                isYinpinPlaying = !isYinpinPlaying;
-                isJiangjiePlaying = false;
-                ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
-                if (isYinpinPlaying) {
-                    ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    if (data.leftUri != null) {
-                        audioBinder.audioPlay(data.leftUri);
-                    }
-                } else {
+                @Override
+                public void onClick(View v) {
+                    isJiangjiePlaying = !isJiangjiePlaying;
+                    isYinpinPlaying = false;
                     ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
-                    audioBinder.audioPause();
-                }
-            }
-        });
-
-        ivJiangjie.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                isJiangjiePlaying = !isJiangjiePlaying;
-                isYinpinPlaying = false;
-                ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
-                if (isJiangjiePlaying) {
-                    ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
-                    if (data.uri != null) {
-                        audioBinder.audioPlay(data.uri);
+                    if (isJiangjiePlaying) {
+                        ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
+                        if (data.uri != null) {
+                            try {
+                                audioBinder.audioPlay(data.uri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
+                        audioBinder.audioPause();
                     }
-                } else {
-                    ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
-                    audioBinder.audioPause();
                 }
-            }
-        });
+            });
+        }
 
         tvTitle.setText(data.title);
         tvInfo.setText(data.text);
@@ -208,12 +222,6 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
                     isJiangjiePlaying = false;
                     audioBinder.audioStop();
                 }
-            }
-        });
-
-        tvJiangjie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
         dialog.show();
@@ -237,14 +245,6 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
         findViewById(R.id.imgbtn8).setOnClickListener(this);
         findViewById(R.id.imgbtn9).setOnClickListener(this);
 
-
-        findViewById(R.id.imgbtn_3d).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(GuanyinshanMapActivity.this, Fengqin3dDaolanActivity.class);
-                startActivity(intent);
-            }
-        });
         View bar = findViewById(R.id.bar);
         ImageButton imaBtn_right = (ImageButton) bar.findViewById(R.id.bar_right);
         ImageButton imaBtn_left = (ImageButton) bar.findViewById(R.id.bar_left);
@@ -309,7 +309,11 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
         isJiangjiePlaying = !isJiangjiePlaying;
         if (isJiangjiePlaying) {
             //播放
-            audioBinder.audioPlay(getAudioUri(id));
+            try {
+                audioBinder.audioPlay(getAudioUri(id));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             //停止
         }
