@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <include
         android:id="@+id/bar"
@@ -12,9 +12,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_below="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/bar"
         android:background="@mipmap/img_introduction_top" />
 
     <RelativeLayout
@@ -28,14 +28,14 @@
             android:id="@+id/tv_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="36dp"
             android:drawableLeft="@drawable/selector_ic_in"
             android:drawablePadding="8dp"
-            android:textColor="@color/selector_tv_color_white_blue"
+            android:paddingTop="5dp"
             android:text="进入"
-            android:paddingTop="5dp" />
+            android:textColor="@color/selector_tv_color_white_blue"/>
 
         <TextView
             android:id="@+id/tv_res"
@@ -44,9 +44,9 @@
             android:layout_centerInParent="true"
             android:drawableLeft="@drawable/selector_ic_download"
             android:drawablePadding="8dp"
-            android:textColor="@color/selector_tv_color_white_blue"
+            android:paddingTop="5dp"
             android:text="资源包"
-            android:paddingTop="5dp" />
+            android:textColor="@color/selector_tv_color_white_blue"/>
 
         <TextView
             android:id="@+id/tv_explain"
@@ -57,9 +57,9 @@
             android:layout_marginRight="36dp"
             android:drawableLeft="@drawable/selector_ic_explain"
             android:drawablePadding="8dp"
-            android:textColor="@color/selector_tv_color_white_blue"
+            android:paddingTop="5dp"
             android:text="讲解"
-            android:paddingTop="5dp" />
+            android:textColor="@color/selector_tv_color_white_blue"/>
     </RelativeLayout>
 
     <ScrollView

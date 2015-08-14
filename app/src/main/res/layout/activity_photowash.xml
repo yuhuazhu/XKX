@@ -40,7 +40,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/imgbtn_back"
-            android:background="@mipmap/ic_home_white"/>
+            android:background="@mipmap/ic_home_white"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <LinearLayout

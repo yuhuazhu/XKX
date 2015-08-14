@@ -1,6 +1,7 @@
 package com.xiamen.xkx.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +16,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xiamen.xkx.R;
 
 import org.json.JSONException;
@@ -29,6 +34,8 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class PhotoTakeActivity extends AppCompatActivity implements OnClickListener {
+    protected ImageLoader imageLoader = ImageLoader.getInstance();
+    DisplayImageOptions options; // 配置图片加载及显示选项
     private RelativeLayout upbtn;
     private RelativeLayout cancel;
     private RelativeLayout progresslay;
@@ -46,16 +53,30 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phototake);
+        initImageLoader(this);
         initData();
         initUI();
+    }
 
+    public void initImageLoader(Context context) {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO).build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+        // 配置图片加载及显示选项（还有一些其他的配置，查阅doc文档吧）
+        options = new DisplayImageOptions.Builder().showStubImage(R.mipmap.ic_launcher) // 在ImageView加载过程中显示图片
+                .showImageForEmptyUri(R.mipmap.ic_launcher) // image连接地址为空时
+                .showImageOnFail(R.mipmap.ic_launcher) // image加载失败
+                .cacheInMemory(false) // 加载图片时会在内存中加载缓存
+                .cacheOnDisc(false) // 加载图片时会在磁盘中加载缓存
+                .build();
     }
 
     private void initData() {
         selectedImage = (Uri) getIntent().getExtras().get("Uri");
         fileName = (String) getIntent().getExtras().get("fileName");
         ImageView iv = ((ImageView) findViewById(R.id.imageView1));
-        ImageLoader.getInstance().displayImage(selectedImage.getPath(), iv);
+        String path = "file:///mnt/sdcard/myImage/" + getIntent().getStringExtra("fileName");
+        ImageLoader.getInstance().displayImage(path, iv, options);
     }
 
     private void initUI() {

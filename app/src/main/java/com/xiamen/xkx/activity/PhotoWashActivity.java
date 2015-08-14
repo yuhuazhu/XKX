@@ -13,6 +13,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.xiamen.xkx.R;
 
@@ -35,6 +36,12 @@ public class PhotoWashActivity extends AppCompatActivity implements OnClickListe
     }
 
     private void initUI() {
+        findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PhotoWashActivity.this, "暂无数据,敬请期待", Toast.LENGTH_SHORT).show();
+            }
+        });
         findViewById(R.id.imgbtn_back).setOnClickListener(this);
         findViewById(R.id.imgbtn_home).setOnClickListener(this);
         findViewById(R.id.tv_gallery).setOnClickListener(this);
@@ -135,7 +142,7 @@ public class PhotoWashActivity extends AppCompatActivity implements OnClickListe
             Intent intent = new Intent();
             intent.setClass(this, PhotoTakeActivity.class);
             intent.putExtra("Uri", selectedImage);
-            intent.putExtra("fileName", selectedImage.getPath());
+            intent.putExtra("fileName", name);
             startActivity(intent);
             // ((ImageView)
             // findViewById(R.id.imageView1)).setImageBitmap(bitmap);//
