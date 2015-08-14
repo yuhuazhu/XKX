@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:src="@mipmap/img_shakeshake" />
 
     <ImageView
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_shake"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@mipmap/img_hand_select" />
 
     <LinearLayout
@@ -43,7 +43,7 @@
         android:layout_below="@+id/imgBtn_select_scenic"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="36dp">
+        android:paddingTop="26dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -66,6 +66,14 @@
                 android:visibility="invisible" />
 
             <ImageButton
+                android:id="@+id/imgBtn_3d_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_3d_photo"
+                android:visibility="invisible" />
+
+            <ImageButton
                 android:id="@+id/imgBtn_massage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +91,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="15dp"
-            android:background="@mipmap/img_service" />
+            android:background="@drawable/selector_service" />
     </LinearLayout>
 
 </RelativeLayout>
