@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiamen.xkx.R;
@@ -55,8 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         width = metric.widthPixels;
         height = metric.heightPixels;
         initView();
-        if (!BluetoothAdapter.getDefaultAdapter().isEnabled())
-            showEnableBlueToothDialog();
+        try {
+            if (!BluetoothAdapter.getDefaultAdapter().isEnabled()) {
+                showTipDialog("", 0);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "您的手机没有蓝牙", Toast.LENGTH_SHORT).show();
+        }
+        //模拟器测试，真机删除
+        showTipDialog("", 0);
     }
 
     @Override
@@ -188,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     iv_shake.clearAnimation();
                     iv_shake.setBackgroundResource(R.mipmap.img_shake);
                     animationCount = 5;
+                    showTipDialog("检测到您当前位置：鼓浪屿景区，是否进入", 1);
                 }
             }
 
@@ -198,26 +207,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private void showEnableBlueToothDialog() {
+    private void showTipDialog(String content, int mode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = getLayoutInflater().inflate(R.layout.dialog_activity_main_enable_ble, null);
+        TextView tv_tip = (TextView) v.findViewById(R.id.tv_tip);
         Button img_btn_ok = (Button) v.findViewById(R.id.img_btn_ok);
         Button img_btn_cancer = (Button) v.findViewById(R.id.img_btn_cancer);
         dialog = builder.setView(v).create();
-        img_btn_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BluetoothAdapter.getDefaultAdapter().enable();
-                dialog.dismiss();
-            }
-        });
+        dialog.show();
+        if (!content.equals("")) {
+            tv_tip.setText(content);
+        }
+        switch (mode) {
+            case 0:
+                img_btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        BluetoothAdapter.getDefaultAdapter().enable();
+                        dialog.dismiss();
+                    }
+                });
+                break;
+            case 1:
+                img_btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //跳转到地图
+                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+//                        intent.putExtra("name", "鼓浪屿风琴博物馆");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+        }
         img_btn_cancer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        dialog.show();
     }
 
     //隐藏服务内容动画
