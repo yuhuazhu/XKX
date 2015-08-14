@@ -67,12 +67,20 @@ public class JingquActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        list.add(new ItemData("鼓浪屿风琴博物馆", R.mipmap.img_gulangyu));
-        list.add(new ItemData("郑成功纪念馆", R.mipmap.img_zheng_cheng_gong_ji_nian_guan));
-        list.add(new ItemData("厦门海底世界", R.mipmap.img_haidi_shijie));
-        list.add(new ItemData("日光岩", R.mipmap.img_riguangyan));
-        list.add(new ItemData("菽庄花园", R.mipmap.img_shu_zhuang_huayuan));
-        list.add(new ItemData("海天堂构", R.mipmap.img_hai_tian_tang_gou));
+        Intent it = getIntent();
+        int which = it.getIntExtra("which", 0);
+        if (which == 2) {
+            list.add(new ItemData("旅游集散服务中心", R.mipmap.img_jisanfuwu));
+            list.add(new ItemData("沙雕公园", R.mipmap.img_shadiao));
+            list.add(new ItemData("梦幻海岸主题乐园", R.mipmap.img_menghuanleyuan));
+        } else {
+            list.add(new ItemData("鼓浪屿风琴博物馆", R.mipmap.img_gulangyu));
+            list.add(new ItemData("郑成功纪念馆", R.mipmap.img_zheng_cheng_gong_ji_nian_guan));
+            list.add(new ItemData("厦门海底世界", R.mipmap.img_haidi_shijie));
+            list.add(new ItemData("日光岩", R.mipmap.img_riguangyan));
+            list.add(new ItemData("菽庄花园", R.mipmap.img_shu_zhuang_huayuan));
+            list.add(new ItemData("海天堂构", R.mipmap.img_hai_tian_tang_gou));
+        }
     }
 
     class ButtonOnClickListener implements View.OnClickListener {
@@ -89,12 +97,10 @@ public class JingquActivity extends AppCompatActivity {
             } else if (view.getId() == R.id.imgbtn_back) {
                 finish();
             } else if (view.getId() == R.id.iv_jieshao || view.getId() == R.id.tv_jieshao) {
-                //TODO something
                 Intent intent = new Intent(JingquActivity.this, IntroductionActivity.class);
                 intent.putExtra("景点", "鼓浪屿景区");
                 startActivity(intent);
             } else if (view.getId() == R.id.iv_pos || view.getId() == R.id.tv_pos) {
-                //TODO start another activity
                 Intent intent = new Intent(JingquActivity.this, LocationActivity.class);
                 startActivity(intent);
             }
@@ -146,18 +152,15 @@ public class JingquActivity extends AppCompatActivity {
             ivJingdian.setImageResource(list.get(position).imgID);
             final MyHolder mh = (MyHolder) holder;
             // 干掉资源包
-            if(position >= 1)
-            {
+            if (position >= 1) {
                 mh.tvDown.setTextColor(Color.GRAY);
                 mh.tvJiesao.setTextColor(Color.GRAY);
                 // TODO: 灰色图标
-                Drawable drawable= getResources().getDrawable(R.mipmap.ic_download_black);
+                Drawable drawable = getResources().getDrawable(R.mipmap.ic_download_black);
                 // 这一步必须要做,否则不会显示.
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 mh.tvDown.setCompoundDrawables(drawable, null, null, null);
-            }
-            else
-            {
+            } else {
                 mh.tvTitle.setTextColor(Color.BLACK);
                 mh.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -169,9 +172,7 @@ public class JingquActivity extends AppCompatActivity {
                             ComponentName component = new ComponentName(pkgName, launcherActivity);
                             intent = new Intent();
                             intent.setComponent(component);
-                        }
-                        else
-                        {
+                        } else {
                             intent = new Intent(JingquActivity.this, MapActivity.class);
                         }
                         try {
