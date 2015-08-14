@@ -18,7 +18,6 @@ import com.xiamen.xkx.R;
 import com.xiamen.xkx.service.AudioService;
 import com.xiamen.xkx.service.BleScanService;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -168,11 +167,7 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
                     if (isYinpinPlaying) {
                         ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
                         if (data.leftUri != null) {
-                            try {
-                                audioBinder.audioPlay(data.leftUri);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            audioBinder.audioPlay(data.leftUri);
                         }
                     } else {
                         ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
@@ -196,11 +191,7 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
                     if (isJiangjiePlaying) {
                         ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
                         if (data.uri != null) {
-                            try {
-                                audioBinder.audioPlay(data.uri);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            audioBinder.audioPlay(data.uri);
                         }
                     } else {
                         ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
@@ -309,11 +300,7 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
         isJiangjiePlaying = !isJiangjiePlaying;
         if (isJiangjiePlaying) {
             //播放
-            try {
-                audioBinder.audioPlay(getAudioUri(id));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            audioBinder.audioPlay(getAudioUri(id));
         } else {
             //停止
         }

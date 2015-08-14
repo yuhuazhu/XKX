@@ -202,11 +202,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
                     if (isYinpinPlaying) {
                         ivYinpin.setBackgroundResource(R.mipmap.ic_pause_blue);
-                        try {
-                            audioBinder.audioPlay(data.leftUri);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        audioBinder.audioPlay(data.leftUri);
                     } else {
                         ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
                         audioBinder.audioPause();
@@ -229,11 +225,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     ivYinpin.setBackgroundResource(R.mipmap.ic_play_blue);
                     if (isJiangjiePlaying) {
                         ivJiangjie.setBackgroundResource(R.mipmap.ic_pause_blue);
-                        try {
-                            audioBinder.audioPlay(data.uri);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        audioBinder.audioPlay(data.uri);
                     } else {
                         ivJiangjie.setBackgroundResource(R.mipmap.ic_play_blue);
                         audioBinder.audioPause();
@@ -342,11 +334,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         isJiangjiePlaying = !isJiangjiePlaying;
         if (isJiangjiePlaying) {
             //播放
-            try {
-                audioBinder.audioPlay(getAudioUri(id));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            audioBinder.audioPlay(getAudioUri(id));
         } else {
             //停止
         }
