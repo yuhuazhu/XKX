@@ -40,6 +40,9 @@ public class AudioService extends Service {
     }
 
     public void play(Uri uri) {
+        if (uri == null) {
+            return;
+        }
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(this, uri);
