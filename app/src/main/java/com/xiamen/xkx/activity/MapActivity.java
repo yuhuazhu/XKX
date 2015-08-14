@@ -325,27 +325,6 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
     private Uri getAudioUri(int id) {
         String parent = "android.resource://" + getPackageName() + "/";
-        if (id == 1) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 2) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 3) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 4) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 5) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 6) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 7) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 8) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else if (id == 9) {
-            parent += R.raw.zi_xing_che_zu_lin;
-        } else {
-            throw new IllegalArgumentException("audio id not exist");
-        }
         return Uri.parse(parent);
     }
 
