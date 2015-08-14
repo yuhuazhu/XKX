@@ -39,29 +39,32 @@ public class AudioService extends Service {
         return super.onUnbind(intent);
     }
 
-    public void play(Uri uri) {
-        try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(this, uri);
-            mediaPlayer.setVolume(1, 1);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    isFrist = true;
-                }
-            });
-        } catch (IllegalArgumentException e) {
-            //CrashHandler.getInstance().logStringToFile(e.toString());
-        } catch (SecurityException e) {
-            //CrashHandler.getInstance().logStringToFile(e.toString());
-        } catch (IllegalStateException e) {
-            //CrashHandler.getInstance().logStringToFile(e.toString());
-        } catch (IOException e) {
-            //CrashHandler.getInstance().logStringToFile(e.toString());
+    public void play(Uri uri) throws IOException {
+        if (uri == null) {
+            return;
         }
+        mediaPlayer.reset();
+        mediaPlayer.setDataSource(this, uri);
+        mediaPlayer.setVolume(1, 1);
+        mediaPlayer.prepareAsync();
+        mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
+
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mediaPlayer.start();
+                isFrist = true;
+            }
+        });
+        //try {
+        //} catch (IllegalArgumentException e) {
+        //    //CrashHandler.getInstance().logStringToFile(e.toString());
+        //} catch (SecurityException e) {
+        //    //CrashHandler.getInstance().logStringToFile(e.toString());
+        //} catch (IllegalStateException e) {
+        //    //CrashHandler.getInstance().logStringToFile(e.toString());
+        //} catch (IOException e) {
+        //    //CrashHandler.getInstance().logStringToFile(e.toString());
+        //}
         mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
             @Override
@@ -86,7 +89,7 @@ public class AudioService extends Service {
         }
 
         // 初始化并播放
-        public void audioPlay(Uri uri) {
+        public void audioPlay(Uri uri) throws IOException {
             play(uri);
         }
 
@@ -118,7 +121,7 @@ public class AudioService extends Service {
         }
 
         // 播放下一个
-        public void audioPlayNext(Uri uri) {
+        public void audioPlayNext(Uri uri) throws IOException {
             isFrist = false;
             play(uri);
         }
