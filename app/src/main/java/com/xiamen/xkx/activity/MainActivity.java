@@ -3,8 +3,10 @@ package com.xiamen.xkx.activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,6 +14,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -28,14 +31,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brtbeacon.sdk.BRTBeacon;
 import com.xiamen.xkx.R;
+import com.xiamen.xkx.service.BleScanService;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView iv_shakeshake;                //摇一摇文字
     private ImageView iv_shake;                     //摇一摇图标
     private ImageButton imgBtn_scenic;              //选择景点按钮
-    private ImageButton imgBtn_photo;               //全身按摩按钮
+    private ImageButton imgBtn_photo;               //照片冲印按钮
+    private ImageButton imgBtn_3d_photo;               //3D拍照按钮
     private ImageButton imgBtn_massage;             //全身按摩按钮
     private ImageButton imgBtn_service;             //服务按钮
     private boolean isShowService;                  //是否显示服务内容
@@ -46,6 +54,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SensorManager sensorManager;
     private Vibrator vibrator;
     private final int MSG_SENSOR_SHAKE = 10;
+
+    private BleScanService.BleBinder bleBinder;
+    private ServiceConnection conn = new ServiceConnection() {
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.e("scan", "onServiceDisconnected()");
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e("scan", "onServiceConnected");
+            bleBinder = (BleScanService.BleBinder) service;
+
+            bleBinder.setRegion(null);// 空代表扫描所有
+            bleBinder.setOnBleScanListener(new BleScanService.OnBleScanListener() {
+
+                @Override
+                public void onPeriodScan(List<BRTBeacon> scanResultList) {
+                }
+
+                @Override
+                public void onNearBleChanged(BRTBeacon oriBeacon,
+                                             BRTBeacon desBeacon) {
+                    Log.e("scan", "onNearBleChanged,current:"
+                            + desBeacon.macAddress);
+                }
+
+                @Override
+                public void onNearBeacon(BRTBeacon brtBeacon) {
+                    if (brtBeacon != null) {
+                        showTipDialog("检测到您当前位置：鼓浪屿景区，是否进入", 1);
+                    } else {
+                        Toast.makeText(MainActivity.this, "这次没有扫描到噢", Toast.LENGTH_SHORT).show();
+                    }
+                    unbindService(conn);
+                }
+            });
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +111,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             Toast.makeText(this, "您的手机没有蓝牙", Toast.LENGTH_SHORT).show();
         }
+
+
         //模拟器测试，真机删除
-        showTipDialog("", 0);
+//        showTipDialog("", 0);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            iv_shake.clearAnimation();
+            unbindService(conn);
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sensorManager.unregisterListener(sensorEventListener);
+        unbindService(conn);
     }
 
     //初始化控件
@@ -79,12 +141,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_shake = (ImageView) findViewById(R.id.img_shake);
         imgBtn_scenic = (ImageButton) findViewById(R.id.imgBtn_select_scenic);
         imgBtn_photo = (ImageButton) findViewById(R.id.imgBtn_photo);
+        imgBtn_3d_photo = (ImageButton) findViewById(R.id.imgBtn_3d_photo);
         imgBtn_massage = (ImageButton) findViewById(R.id.imgBtn_massage);
         imgBtn_service = (ImageButton) findViewById(R.id.imgBtn_service);
         iv_shake.setOnClickListener(this);
         imgBtn_scenic.setOnClickListener(this);
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
+        imgBtn_3d_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
         iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -127,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
             if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
                     || Math.abs(z) > medumValue) {
-                vibrator.vibrate(200);
+                vibrator.vibrate(400);
                 Message msg = new Message();
                 msg.what = MSG_SENSOR_SHAKE;
                 handler.sendMessage(msg);
@@ -150,6 +214,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SENSOR_SHAKE:
+                    Intent service = new Intent(MainActivity.this, BleScanService.class);
+                    bindService(service, conn, BIND_AUTO_CREATE);
                     shakeShake();
                     break;
             }
@@ -196,7 +262,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     iv_shake.clearAnimation();
                     iv_shake.setBackgroundResource(R.mipmap.img_shake);
                     animationCount = 5;
-                    showTipDialog("检测到您当前位置：鼓浪屿景区，是否进入", 1);
                 }
             }
 
@@ -255,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         translate_right.setDuration(600);
         translate_right.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_right);
+        imgBtn_3d_photo.setAnimation(translate_right);
         imgBtn_massage.setAnimation(translate_right);
     }
 
@@ -264,30 +330,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         translate_left.setDuration(600);
         translate_left.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_left);
+        imgBtn_3d_photo.setAnimation(translate_left);
         imgBtn_massage.setAnimation(translate_left);
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.img_shake:
+                vibrator.vibrate(400);
                 shakeShake();
                 break;
             case R.id.imgBtn_select_scenic:
                 //跳转到景区列表界面
-                Intent intent = new Intent(MainActivity.this, JingquListActivity.class);
+                intent = new Intent(MainActivity.this, JingquListActivity.class);
                 intent.putExtra("name", "鼓浪屿风琴博物馆");
                 startActivity(intent);
                 break;
+            case R.id.imgBtn_photo:
+                intent = new Intent(MainActivity.this, PhotoWashActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.imgBtn_3d_photo:
+                try {
+                    String pkgName = "com.mgd.zcg3d";
+                    String launcherActivity = "com.unity3d.player.UnityPlayerNativeActivity";
+                    ComponentName component = new ComponentName(pkgName, launcherActivity);
+                    intent = new Intent();
+                    intent.setComponent(component);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "请安装郑成功app", Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.imgBtn_service:
                 if (isShowService) {
-                    imgBtn_service.setBackgroundResource(R.mipmap.img_service);
+                    imgBtn_service.setBackgroundResource(R.drawable.selector_service);
                     imgBtn_photo.setVisibility(View.INVISIBLE);
+                    imgBtn_3d_photo.setVisibility(View.INVISIBLE);
                     imgBtn_massage.setVisibility(View.INVISIBLE);
                     buttonOut();
                 } else {
-                    imgBtn_service.setBackgroundResource(R.mipmap.img_service_back);
+                    imgBtn_service.setBackgroundResource(R.drawable.selector_service_back);
                     imgBtn_photo.setVisibility(View.VISIBLE);
+                    imgBtn_3d_photo.setVisibility(View.VISIBLE);
                     imgBtn_massage.setVisibility(View.VISIBLE);
                     buttonIn();
                 }
