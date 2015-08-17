@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //隐藏服务内容动画
     public void buttonOut() {
-        TranslateAnimation translate_right = new TranslateAnimation(0, width / 5 * 3, 0, 0);
+        TranslateAnimation translate_right = new TranslateAnimation(0, width / 7 * 5, 0, 0);
         // 设置动画持续时间
         translate_right.setDuration(600);
         translate_right.setFillAfter(true);
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //显示服务内容动画
     public void buttonIn() {
-        TranslateAnimation translate_left = new TranslateAnimation(width / 5 * 3, 0, 0, 0);
+        TranslateAnimation translate_left = new TranslateAnimation(width / 7 * 5, 0, 0, 0);
         translate_left.setDuration(600);
         translate_left.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_left);
