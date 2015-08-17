@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:onClick="startIntorduction"
         android:background="@drawable/selector_introduction_lease" />
 
     <ImageButton
@@ -34,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ib_introduction"
         android:layout_centerHorizontal="true"
+        android:onClick="startHire"
         android:background="@drawable/selector_hire_lease" />
 
     <ImageButton
@@ -42,5 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ib_hire"
         android:layout_centerHorizontal="true"
+        android:onClick="startOrder"
         android:background="@drawable/selector_order_lease" />
 </RelativeLayout>

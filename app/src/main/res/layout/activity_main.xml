@@ -48,13 +48,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/imgBtn_service"
-            android:layout_alignLeft="@+id/imgBtn_select_scenic"
-            android:layout_alignStart="@+id/imgBtn_select_scenic"
-            android:layout_alignTop="@+id/imgBtn_service"
-            android:layout_marginLeft="46dp"
-            android:layout_toLeftOf="@+id/imgBtn_service"
-            android:layout_toStartOf="@+id/imgBtn_service"
+            android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -65,6 +59,12 @@
                 android:background="@drawable/selector_photo"
                 android:visibility="invisible" />
 
+            <ImageButton
+                android:id="@+id/imgBtn_lease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_lease"
+                android:visibility="invisible" />
             <ImageButton
                 android:id="@+id/imgBtn_3d_photo"
                 android:layout_width="wrap_content"
