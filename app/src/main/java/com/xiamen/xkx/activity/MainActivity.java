@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv_shake;                     //摇一摇图标
     private ImageButton imgBtn_scenic;              //选择景点按钮
     private ImageButton imgBtn_photo;               //照片冲印按钮
-    private ImageButton imgBtn_3d_photo;               //3D拍照按钮
+    private ImageButton imgBtn_lease;               //设备租赁按钮
+    private ImageButton imgBtn_3d_photo;            //3D拍照按钮
     private ImageButton imgBtn_massage;             //全身按摩按钮
     private ImageButton imgBtn_service;             //服务按钮
     private boolean isShowService;                  //是否显示服务内容
@@ -189,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_shake = (ImageView) findViewById(R.id.img_shake);
         imgBtn_scenic = (ImageButton) findViewById(R.id.imgBtn_select_scenic);
         imgBtn_photo = (ImageButton) findViewById(R.id.imgBtn_photo);
+        imgBtn_lease = (ImageButton) findViewById(R.id.imgBtn_lease);
         imgBtn_3d_photo = (ImageButton) findViewById(R.id.imgBtn_3d_photo);
         imgBtn_massage = (ImageButton) findViewById(R.id.imgBtn_massage);
         imgBtn_service = (ImageButton) findViewById(R.id.imgBtn_service);
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgBtn_scenic.setOnClickListener(this);
         imgBtn_service.setOnClickListener(this);
         imgBtn_photo.setOnClickListener(this);
+        imgBtn_lease.setOnClickListener(this);
         imgBtn_3d_photo.setOnClickListener(this);
         imgBtn_massage.setOnClickListener(this);
         iv_shakeshake.setOnLongClickListener(new View.OnLongClickListener() {
@@ -318,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         translate_right.setDuration(600);
         translate_right.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_right);
+        imgBtn_lease.setAnimation(translate_right);
         imgBtn_3d_photo.setAnimation(translate_right);
         imgBtn_massage.setAnimation(translate_right);
     }
@@ -328,6 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         translate_left.setDuration(600);
         translate_left.setFillAfter(true);
         imgBtn_photo.setAnimation(translate_left);
+        imgBtn_lease.setAnimation(translate_left);
         imgBtn_3d_photo.setAnimation(translate_left);
         imgBtn_massage.setAnimation(translate_left);
     }
@@ -352,6 +357,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, PhotoWashActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.imgBtn_lease:
+                intent = new Intent(MainActivity.this, LeaseActivity.class);
+                startActivity(intent);
+                break;
             case R.id.imgBtn_3d_photo:
                 try {
                     String pkgName = "com.mgd.zcg3d";
@@ -368,12 +377,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (isShowService) {
                     imgBtn_service.setBackgroundResource(R.drawable.selector_service);
                     imgBtn_photo.setVisibility(View.INVISIBLE);
+                    imgBtn_lease.setVisibility(View.INVISIBLE);
                     imgBtn_3d_photo.setVisibility(View.INVISIBLE);
                     imgBtn_massage.setVisibility(View.INVISIBLE);
                     buttonOut();
                 } else {
                     imgBtn_service.setBackgroundResource(R.drawable.selector_service_back);
                     imgBtn_photo.setVisibility(View.VISIBLE);
+                    imgBtn_lease.setVisibility(View.VISIBLE);
                     imgBtn_3d_photo.setVisibility(View.VISIBLE);
                     imgBtn_massage.setVisibility(View.VISIBLE);
                     buttonIn();
