@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/img_introduction_pressed_lease" android:state_pressed="true" />
+    <item android:drawable="@mipmap/img_introduction_lease" />
+</selector>

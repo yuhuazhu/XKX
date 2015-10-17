@@ -34,19 +34,23 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.DeviceIntroductionActivity" />
         <activity android:name=".activity.Fengqin3dDaolanActivity"/>
+        <activity android:name=".activity.OrderTrackingActivity" />
         <activity android:name=".activity.GuanyinshanMapActivity"/>
         <activity android:name=".activity.PhotoScanningActivity" />
         <activity android:name=".activity.IntroductionActivity" />
         <activity android:name=".activity.PhotoUploadActivity" />
+        <activity android:name=".activity.DeviceHireActivity" />
         <activity android:name=".activity.JingquListActivity" />
         <activity android:name=".activity.PhotoWashActivity" />
         <activity android:name=".activity.PhotoTakeActivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.JingquActivity" />
+        <activity android:name=".activity.LeaseActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.MapActivity" />
-        <!-- 自己封装的，优化提取rssi的后台蓝牙扫描服务 -->
+        <!-- 自己封装的，优化提取rssi的后台蓝牙扫描服务 -->````````````````````````
         <service
             android:name=".service.BleScanService"
             android:enabled="true"

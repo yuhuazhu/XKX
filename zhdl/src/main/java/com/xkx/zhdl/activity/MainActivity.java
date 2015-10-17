@@ -1,5 +1,6 @@
-package com.xiamen.xkx.activity;
+package com.xkx.zhdl.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
@@ -15,7 +16,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -29,12 +29,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.brtbeacon.sdk.BRTBeacon;
-import com.xiamen.xkx.R;
-import com.xiamen.xkx.service.BleScanService;
+import com.xkx.zhdl.R;
+import com.xkx.zhdl.service.BleScanService;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class MainActivity extends Activity implements View.OnClickListener{
 
     private final int MSG_SENSOR_SHAKE = 10;
     private ImageView iv_shakeshake;                //摇一摇文字
@@ -299,9 +300,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(View v) {
                         //跳转到地图
-                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
-//                        intent.putExtra("name", "鼓浪屿风琴博物馆");
-                        startActivity(intent);
+//                        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+////                        intent.putExtra("name", "鼓浪屿风琴博物馆");
+//                        startActivity(intent);
                         dialog.dismiss();
                     }
                 });
@@ -349,17 +350,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.imgBtn_select_scenic:
                 //跳转到景区列表界面
-                intent = new Intent(MainActivity.this, JingquListActivity.class);
-                intent.putExtra("name", "鼓浪屿风琴博物馆");
-                startActivity(intent);
+//                intent = new Intent(MainActivity.this, JingquListActivity.class);
+//                intent.putExtra("name", "鼓浪屿风琴博物馆");
+//                startActivity(intent);
                 break;
             case R.id.imgBtn_photo:
-                intent = new Intent(MainActivity.this, PhotoWashActivity.class);
-                startActivity(intent);
+//                intent = new Intent(MainActivity.this, PhotoWashActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.imgBtn_lease:
-                intent = new Intent(MainActivity.this, LeaseActivity.class);
-                startActivity(intent);
+//                intent = new Intent(MainActivity.this, LeaseActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.imgBtn_3d_photo:
                 try {
