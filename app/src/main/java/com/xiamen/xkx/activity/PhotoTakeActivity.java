@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -90,7 +91,6 @@ public class PhotoTakeActivity extends AppCompatActivity implements OnClickListe
 
         imgbtn_back = (ImageButton) findViewById(R.id.imgbtn_back);
         imgbtn_back.setOnClickListener(this);
-
     }
 
     @Override

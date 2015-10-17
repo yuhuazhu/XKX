@@ -1,12 +1,12 @@
 package com.xiamen.xkx.activity;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,6 +34,7 @@ public class GuanyinshanMapActivity extends AppCompatActivity implements View.On
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+
         }
 
         @Override

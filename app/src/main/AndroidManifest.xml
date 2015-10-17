@@ -67,6 +67,8 @@
             android:name=".activity.HulishanActivity"
             android:label="1">
         </activity>
+
     </application>
+
 
 </manifest>
